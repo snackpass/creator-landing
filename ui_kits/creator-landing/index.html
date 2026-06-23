@@ -1,0 +1,631 @@
+<!-- @dsCard group="Creator Landing" viewport="1280x860" subtitle="creators.snackpass.co — full marketing page" name="Creator network landing" -->
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snackpass — creator network</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  *{box-sizing:border-box;margin:0;}
+  html{scroll-behavior:smooth;overflow-x:clip;}
+  body{font-family:var(--font-text);color:var(--sp-navy);background:var(--sp-white);-webkit-font-smoothing:antialiased;overflow-x:clip;}
+
+  /* ---- motion ---- */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:none;}}
+  @keyframes popIn{0%{opacity:0;transform:scale(.85) translateY(10px);}100%{opacity:1;transform:scale(1) translateY(0);}}
+  @keyframes floatA{0%,100%{transform:rotate(-6deg) translateY(0);}50%{transform:rotate(-6deg) translateY(-14px);}}
+  @keyframes floatB{0%,100%{transform:rotate(4deg) translateY(0);}50%{transform:rotate(4deg) translateY(-18px);}}
+  @keyframes floatC{0%,100%{transform:rotate(-3deg) translateY(0);}50%{transform:rotate(-3deg) translateY(-11px);}}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+  @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @keyframes spinSlow{from{transform:rotate(0);}to{transform:rotate(360deg);}}
+  /* scroll reveal */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-spring);}
+  .reveal.in{opacity:1;transform:none;}
+  .reveal.d1{transition-delay:.08s;}.reveal.d2{transition-delay:.16s;}.reveal.d3{transition-delay:.24s;}.reveal.d4{transition-delay:.32s;}
+  /* selector-based reveal (no flash; gated on .anim) */
+  .anim .stats .stat,.anim .sec-head,.anim .feat,.anim .ctaband .wrap>*,.anim .faq,.anim footer .top>*{
+    opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-spring);}
+  .anim .is-in{opacity:1!important;transform:none!important;}
+  .anim .stats .stat:nth-child(2){transition-delay:.07s;}
+  .anim .stats .stat:nth-child(3){transition-delay:.14s;}
+  .anim .stats .stat:nth-child(4){transition-delay:.21s;}
+  .anim .feat:nth-child(2){transition-delay:.08s;}
+  .anim .feat:nth-child(3){transition-delay:.16s;}
+  .anim .feat:nth-child(4){transition-delay:.24s;}
+  .anim .ctaband .wrap>*:nth-child(2){transition-delay:.1s;}
+  .anim .ctaband .wrap>*:nth-child(3){transition-delay:.2s;}
+  .anim .faq:nth-child(2){transition-delay:.06s;}
+  .anim .faq:nth-child(3){transition-delay:.12s;}
+  .anim .faq:nth-child(4){transition-delay:.18s;}
+  .anim .faq:nth-child(5){transition-delay:.24s;}
+  /* hero entrance stagger */
+  .hero-copy>*{opacity:0;animation:fadeUp .7s var(--ease-spring) forwards;}
+  .hero-copy>*:nth-child(1){animation-delay:.05s;}
+  .hero-copy>*:nth-child(2){animation-delay:.13s;}
+  .hero-copy>*:nth-child(3){animation-delay:.21s;}
+  .hero-copy>*:nth-child(4){animation-delay:.29s;}
+  .hero-copy>*:nth-child(5){animation-delay:.37s;}
+  .hero-copy>*:nth-child(6){animation-delay:.45s;}
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;}
+    .reveal,.anim .stats .stat,.anim .sec-head,.anim .feat,.anim .ctaband .wrap>*,.anim .faq,.anim footer .top>*{opacity:1!important;transform:none!important;transition:none!important;}
+    .hero-copy>*{opacity:1!important;}
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  h1,h2,h3{font-family:var(--font-display);letter-spacing:-0.03em;font-weight:800;text-transform:lowercase;line-height:1.0;}
+  a{color:inherit;text-decoration:none;}
+  .eyebrow{font-family:var(--font-text);font-weight:700;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--sp-blue);}
+
+  /* ---- nav ---- */
+  nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--sp-line);}
+  .navin{display:flex;align-items:center;gap:28px;height:72px;position:relative;}
+  .navin .logo{height:26px;}
+  .navlinks{display:flex;gap:26px;font-weight:600;font-size:15px;color:var(--sp-navy);position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);}
+  .navlinks a:hover{color:var(--sp-blue);}
+  .toggle{display:inline-flex;background:var(--sp-mist);border-radius:var(--radius-pill);padding:4px;gap:2px;}
+  .toggle a{padding:8px 18px;border-radius:var(--radius-pill);font-weight:700;font-size:14px;color:var(--sp-slate);transition:color var(--dur-base),background var(--dur-base),box-shadow var(--dur-base);}
+  .toggle a.on{background:#fff;color:var(--sp-blue);box-shadow:var(--shadow-xs);}
+  .toggle a:hover:not(.on){color:var(--sp-navy);}
+  .navcta{margin-left:auto;display:flex;gap:10px;align-items:center;}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-text);font-weight:600;cursor:pointer;border:none;transition:transform var(--dur-fast) var(--ease-spring),filter var(--dur-base) var(--ease-out);}
+  .btn:active{transform:scale(.97);}
+  .btn-primary{background:var(--gradient-product);color:#fff;box-shadow:var(--shadow-blue-sm);padding:12px 22px;border-radius:var(--radius-pill);font-size:15px;}
+  .btn-primary:hover{filter:brightness(1.04);}
+  .btn-ghost{background:transparent;color:var(--sp-navy);border:1.5px solid var(--sp-line);padding:11px 20px;border-radius:var(--radius-pill);font-size:15px;}
+  .btn-lg{padding:16px 30px;font-size:17px;border-radius:var(--radius-pill);}
+
+  /* ---- hero ---- */
+  .hero{position:relative;background:var(--gradient-aurora);overflow:hidden;}
+  .hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding-top:72px;padding-bottom:86px;}
+  .badge{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--sp-line);border-radius:var(--radius-pill);padding:7px 7px 7px 16px;box-shadow:var(--shadow-xs);font-weight:600;font-size:14px;}
+  .badge .n{font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--sp-blue);background:var(--sp-mist);padding:5px 11px;border-radius:var(--radius-pill);letter-spacing:-0.02em;}
+  .hero h1{font-size:clamp(34px,6.4vw,56px);margin:22px 0 20px;max-width:660px;}
+  .brk-m{display:none;} /* mobile-only line break in the headline */
+  .hero p.lede{font-size:clamp(17px,2.1vw,21px);line-height:1.5;color:var(--sp-slate);max-width:500px;}
+  .hero .cta-row{display:flex;gap:12px;margin-top:30px;align-items:center;}
+  .hero .meta{margin-top:26px;display:flex;align-items:center;gap:12px;font-size:14px;color:var(--sp-slate);}
+  .avstack{display:flex;}
+  .avstack i{width:34px;height:34px;border-radius:50%;border:2.5px solid #fff;margin-left:-9px;display:block;overflow:hidden;background:var(--sp-mist);}
+  .avstack i:first-child{margin-left:0;}
+  .avstack i .avvid{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;}
+
+  /* hero visual — reel cluster */
+  .reels{position:relative;height:480px;}
+  .reel{position:absolute;width:188px;height:334px;border-radius:26px;overflow:hidden;box-shadow:var(--shadow-lg);border:5px solid #fff;background:#0A2540;}
+  .reel .ph{position:absolute;inset:0;display:flex;align-items:flex-end;padding:14px;}
+  .reel img.stk{position:absolute;width:130px;right:-18px;top:24px;filter:drop-shadow(0 12px 16px rgba(0,0,0,.25));}
+  .reel .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;color:var(--sp-blue);}
+  .reel .handle{position:relative;z-index:2;color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;gap:6px;text-shadow:0 1px 6px rgba(0,0,0,.4);}
+  .reel .views{position:absolute;top:12px;left:12px;z-index:2;background:rgba(10,37,64,.5);backdrop-filter:blur(8px);color:#fff;font-size:12px;font-weight:600;padding:4px 10px;border-radius:var(--radius-pill);}
+  .reelvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;border-radius:20px;}
+  .scard .vid .reelvid{border-radius:22px;}
+  /* creator handles removed from reel cards */
+  .reel .ph,.scard .who{display:none;}
+  .r1{left:8px;top:18px;transform:rotate(-6deg);animation:floatA 5.5s var(--ease-out) infinite;}
+  .r2{left:206px;top:78px;transform:rotate(4deg);z-index:3;animation:floatB 6.5s var(--ease-out) infinite .4s;}
+  .r3{left:392px;top:8px;transform:rotate(-3deg);animation:floatC 5s var(--ease-out) infinite .8s;}
+  .float-notif{position:absolute;bottom:6px;left:42px;z-index:6;display:flex;gap:11px;align-items:center;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.7);border-radius:18px;padding:12px 15px;box-shadow:var(--shadow-md);max-width:300px;animation:bob 4s var(--ease-out) infinite 1s;}
+  .float-notif img{width:34px;height:34px;border-radius:9px;}
+  .float-notif .ttl{font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--sp-navy);}
+  .float-notif .msg{font-size:13.5px;color:#0A2540;margin-top:1px;}
+
+  /* push notification — "invited to a collab" */
+  @keyframes notifIn{from{opacity:0;transform:translateY(-16px) scale(.96);}to{opacity:1;transform:none;}}
+  .push-notif{position:absolute;z-index:8;bottom:44px;left:-6px;display:flex;gap:9px;align-items:center;width:max-content;max-width:320px;background:rgba(255,255,255,.93);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.75);border-radius:15px;padding:9px 11px;box-shadow:var(--shadow-lg);animation:notifIn .6s var(--ease-spring) .9s both,bob 4.5s var(--ease-out) 1.6s infinite;}
+  .push-notif .pn-icon{width:30px;height:30px;border-radius:8px;overflow:hidden;flex:none;box-shadow:var(--shadow-sm);}
+  .push-notif .pn-icon img{width:100%;height:100%;object-fit:cover;display:block;}
+  .push-notif .pn-main{flex:1;min-width:0;}
+  .push-notif .pn-top{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .push-notif .pn-app{font-weight:700;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--sp-slate);}
+  .push-notif .pn-time{font-size:9.5px;color:var(--sp-slate);}
+  .push-notif .pn-title{font-weight:700;font-size:12px;color:var(--sp-navy);margin-top:2px;line-height:1.25;white-space:nowrap;}
+  .push-notif .pn-text{font-size:10.5px;color:var(--sp-slate);margin-top:1px;line-height:1.3;}
+
+  /* ---- stats strip ---- */
+  .stats{border-top:1px solid var(--sp-line);border-bottom:1px solid var(--sp-line);background:var(--sp-cloud);}
+  .stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:40px 32px;}
+  .stat .v{font-family:var(--font-display);font-weight:800;font-size:clamp(34px,4.4vw,48px);letter-spacing:-0.04em;color:var(--sp-blue);line-height:.9;}
+  .stat .l{font-size:15px;color:var(--sp-slate);margin-top:10px;}
+
+  /* ---- features ---- */
+  section.block{padding:96px 0;}
+  .sec-head{text-align:center;max-width:680px;margin:0 auto 56px;}
+  .sec-head h2{font-size:clamp(30px,5vw,48px);margin:14px 0 0;}
+  .sec-head p{font-size:19px;color:var(--sp-slate);margin-top:16px;line-height:1.5;}
+  .feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+  .feat{background:#fff;border:1px solid var(--sp-line);border-radius:var(--radius-xl);padding:32px;box-shadow:var(--shadow-sm);transition:box-shadow var(--dur-base) var(--ease-out),transform var(--dur-base) var(--ease-out);}
+  .feat:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px);}
+  .feat .ic{width:56px;height:56px;border-radius:16px;background:var(--gradient-product);display:flex;align-items:center;justify-content:center;color:#fff;margin-bottom:20px;box-shadow:var(--shadow-blue-sm);}
+  .feat.hi .ic{background:var(--gradient-product);color:#fff;box-shadow:var(--shadow-blue-sm);}
+  .feat h3{font-size:26px;}
+  .feat p{font-size:16px;line-height:1.55;color:var(--sp-slate);margin-top:12px;}
+  .feat .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
+  .tag{font-size:13px;font-weight:600;background:var(--sp-mist);color:var(--sp-blue);padding:7px 13px;border-radius:var(--radius-pill);}
+
+  /* ---- showcase ---- */
+  .showcase{background:var(--sp-cloud);}
+  .reelrow{overflow:hidden;margin-top:8px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);}
+  .reeltrack{display:flex;gap:20px;width:max-content;animation:marquee 36s linear infinite;}
+  .reelrow:hover .reeltrack{animation-play-state:paused;}
+  .scard{flex:none;width:210px;}
+  .scard .vid{position:relative;height:372px;border-radius:22px;overflow:hidden;background:#0A2540;box-shadow:var(--shadow-md);display:flex;align-items:flex-end;padding:14px;}
+  .scard .vid img.stk{position:absolute;width:140px;right:-16px;top:30px;filter:drop-shadow(0 12px 16px rgba(0,0,0,.3));}
+  .scard .vid .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;color:var(--sp-blue);}
+  .scard .who{position:relative;z-index:2;color:#fff;font-weight:700;font-size:14px;text-shadow:0 1px 6px rgba(0,0,0,.4);}
+  .scard .cap{font-size:14px;color:var(--sp-slate);margin-top:12px;}
+  .scard .cap b{color:var(--sp-navy);}
+
+  /* ---- cta band ---- */
+  .ctaband{position:relative;background:var(--gradient-product);overflow:hidden;color:#fff;text-align:center;}
+  .ctaband::after{content:"";position:absolute;inset:0;background:radial-gradient(70% 90% at 85% 5%,rgba(201,210,255,.5),transparent 55%),radial-gradient(60% 90% at 8% 100%,rgba(0,70,160,.45),transparent 55%);}
+  .ctaband .wrap{position:relative;z-index:2;padding:96px 32px;}
+  .ctaband h2{font-size:clamp(34px,6vw,60px);color:#fff;}
+  .ctaband p{font-size:21px;opacity:.94;margin:18px auto 34px;max-width:520px;line-height:1.5;}
+  .btn-white{background:#fff;color:var(--sp-blue);box-shadow:var(--shadow-lg);}
+  .stk-cta{position:absolute;z-index:1;width:150px;filter:drop-shadow(0 18px 24px rgba(0,0,0,.25));}
+
+  /* ---- faq ---- */
+  .faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px;}
+  .faq{background:#fff;border:1px solid var(--sp-line);border-radius:var(--radius-lg);overflow:hidden;}
+  .faq button{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 26px;background:none;border:none;cursor:pointer;font-family:var(--font-text);font-weight:600;font-size:18px;color:var(--sp-navy);text-align:left;}
+  .faq .ans{max-height:0;overflow:hidden;transition:max-height var(--dur-slow) var(--ease-out);}
+  .faq .ans p{padding:0 26px 24px;font-size:16px;line-height:1.6;color:var(--sp-slate);margin:0;}
+  .faq .chev{flex:none;color:var(--sp-blue);transition:transform var(--dur-base) var(--ease-out);}
+  .faq.open .chev{transform:rotate(45deg);}
+
+  /* ---- footer ---- */
+  footer{background:#0A2540;color:#fff;padding:64px 0 40px;}
+  footer .top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;}
+  footer .logo{height:28px;filter:brightness(0) invert(1);}
+  footer .tag2{font-size:16px;color:rgba(255,255,255,.7);margin-top:16px;max-width:300px;line-height:1.5;}
+  footer .socials{display:flex;gap:12px;margin-top:20px;}
+  footer .socials a{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:#fff;transition:background var(--dur-base);}
+  footer .socials a:hover{background:var(--sp-blue);}
+  footer .cols{display:flex;gap:64px;}
+  footer .col h4{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);font-weight:700;margin-bottom:14px;}
+  footer .col a{display:block;font-size:15px;color:rgba(255,255,255,.85);margin-bottom:10px;}
+  footer .col a:hover{color:#fff;}
+  footer .bottom{margin-top:54px;padding-top:24px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:14px;color:rgba(255,255,255,.55);}
+
+  /* ===== corner-inspired additions ===== */
+  @keyframes wiggle{0%,100%{transform:rotate(0);}20%{transform:rotate(-7deg);}45%{transform:rotate(6deg);}70%{transform:rotate(-4deg);}}
+  @keyframes pulsering{0%{transform:scale(.6);opacity:.55;}100%{transform:scale(2.4);opacity:0;}}
+  @keyframes wordIn{0%{opacity:0;transform:translateY(70%) rotate(-4deg);}60%{opacity:1;}100%{opacity:1;transform:none;}}
+
+  /* rotating headline word */
+  .rot{position:relative;display:inline-flex;color:var(--sp-blue);white-space:nowrap;}
+  .rot .word{display:inline-block;animation:wordIn .5s var(--ease-spring);}
+  .rot::after{content:"";position:absolute;left:0;right:0;bottom:.04em;height:.12em;background:var(--sp-sky);border-radius:var(--radius-pill);opacity:.5;}
+
+  /* ticker band */
+  .tickerband{position:relative;background:var(--gradient-product);color:#fff;overflow:hidden;transform:rotate(-2.2deg);width:106%;margin:72px 0 72px -3%;box-shadow:var(--shadow-blue-sm);border-top:2.5px solid #fff;border-bottom:2.5px solid #fff;}
+  .ticker{display:flex;width:max-content;animation:marquee 30s linear infinite;}
+  .tickerband:hover .ticker{animation-play-state:paused;}
+  .ticker .seg{display:flex;align-items:center;gap:30px;padding:16px 15px;}
+  .ticker .seg b{font-family:var(--font-display);font-weight:800;font-size:30px;letter-spacing:-0.02em;text-transform:lowercase;white-space:nowrap;}
+  .ticker .dia{width:16px;height:16px;flex:none;transform:rotate(45deg);background:#fff;border-radius:3px;opacity:.95;}
+
+  /* map discovery */
+  .mapsec{background:var(--sp-cloud);}
+  .mapgrid{display:grid;grid-template-columns:1fr;gap:0;}
+  .mapwrap{position:relative;border-radius:var(--radius-xl);overflow:hidden;border:1px solid var(--sp-line);box-shadow:var(--shadow-lg);height:580px;background:radial-gradient(120% 90% at 18% 8%,#EDF4FF,transparent 58%),linear-gradient(180deg,#F6F9FE,#fff);}
+  .mapcanvas{position:absolute;inset:0;}
+  .mapcanvas::before{content:"";position:absolute;inset:-25%;background:repeating-linear-gradient(0deg,transparent 0 76px,rgba(10,37,64,.045) 76px 78px),repeating-linear-gradient(90deg,transparent 0 94px,rgba(10,37,64,.045) 94px 96px);transform:rotate(-8deg);}
+  .map-park{position:absolute;width:250px;height:200px;left:6%;bottom:7%;background:rgba(47,195,255,.16);border-radius:46% 54% 60% 40%/54% 42% 58% 46%;}
+  .map-water{position:absolute;width:420px;height:560px;right:-150px;top:-80px;background:linear-gradient(160deg,rgba(0,153,255,.13),rgba(47,195,255,.07));transform:rotate(16deg);border-radius:44%;}
+  .map-road{position:absolute;height:16px;background:#fff;box-shadow:0 0 0 1px var(--sp-line);left:-12%;right:-12%;transform:rotate(-8deg);border-radius:12px;}
+
+  .pin{position:absolute;transform:translate(-50%,-100%);cursor:pointer;z-index:2;transition:transform var(--dur-base) var(--ease-spring);}
+  .pin:hover,.pin.active{z-index:7;}
+  .pin .chip{position:relative;width:54px;height:54px;border-radius:50% 50% 50% 7px;transform:rotate(45deg);background:#fff;border:3px solid var(--sp-blue);box-shadow:var(--shadow-md);display:flex;align-items:center;justify-content:center;overflow:hidden;transition:transform var(--dur-base) var(--ease-spring),border-color var(--dur-base);}
+  .pin:hover .chip,.pin.active .chip{transform:rotate(45deg) scale(1.12);}
+  .pin.active .chip{border-color:var(--sp-navy);}
+  .pin .chip>*{transform:rotate(-45deg);}
+  .pin .chip img{width:30px;display:block;}
+  .pin .chip .av{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;color:#fff;font-size:18px;}
+  .pin:hover .chip img{animation:wiggle .55s var(--ease-out);}
+  .pin .ring{position:absolute;left:50%;top:50%;width:54px;height:54px;border-radius:50%;border:2.5px solid var(--sp-blue);transform:translate(-50%,-50%);pointer-events:none;}
+  .pin.live .ring{animation:pulsering 2.4s var(--ease-out) infinite;}
+
+  .mapcard{position:absolute;left:24px;bottom:24px;z-index:8;width:312px;background:#fff;border:1px solid var(--sp-line);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);padding:16px;transition:transform var(--dur-base) var(--ease-spring);}
+  .mapcard .row1{display:flex;align-items:center;gap:12px;}
+  .mapcard .thumb{width:54px;height:54px;border-radius:14px;flex:none;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--sp-mist);}
+  .mapcard .thumb img{width:34px;}
+  .mapcard .name{font-family:var(--font-display);font-weight:800;font-size:20px;letter-spacing:-0.02em;text-transform:lowercase;color:var(--sp-navy);line-height:1;}
+  .mapcard .cui{font-size:13.5px;color:var(--sp-slate);margin-top:5px;}
+  .mapcard .open{margin-left:auto;flex:none;background:var(--sp-mist);color:var(--sp-blue);font-weight:700;font-size:12px;padding:7px 11px;border-radius:var(--radius-pill);display:flex;align-items:center;gap:5px;}
+  .mapcard .rec{display:flex;align-items:center;gap:9px;margin-top:14px;padding-top:13px;border-top:1px solid var(--sp-line);font-size:13.5px;color:var(--sp-slate);}
+  .mapcard .rec .faces{display:flex;}
+  .mapcard .rec .faces i{width:26px;height:26px;border-radius:50%;border:2px solid #fff;margin-left:-8px;display:block;}
+  .mapcard .rec .faces i:first-child{margin-left:0;}
+  .mapcard .rec b{color:var(--sp-navy);}
+  .map-legend{position:absolute;top:20px;left:20px;z-index:6;display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border:1px solid var(--sp-line);border-radius:var(--radius-pill);padding:9px 16px 9px 13px;box-shadow:var(--shadow-sm);font-weight:600;font-size:13.5px;color:var(--sp-navy);}
+  .map-legend .dotlive{width:9px;height:9px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.18);}
+
+  /* playful card tilt */
+  .feat{will-change:transform;}
+  .feat:hover{transform:translateY(-4px) rotate(-.6deg);}
+
+  /* network badge (floating two-part pill) */
+  .badge2{display:inline-flex;transform:scale(0.85);transform-origin:left center;}
+  .bfloat{display:inline-flex;align-items:center;background:rgba(255,255,255,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:var(--radius-pill);padding:5px;box-shadow:0 10px 26px rgba(0,153,255,.24),inset 0 0 0 1.5px rgba(0,153,255,.18);animation:bob 4s var(--ease-out) infinite;}
+  .bfloat .cap{display:inline-flex;align-items:center;gap:9px;background:var(--gradient-product);color:#fff;font-family:var(--font-display);font-weight:800;font-size:19px;letter-spacing:-0.02em;padding:9px 17px;border-radius:var(--radius-pill);box-shadow:var(--shadow-blue-sm);}
+  .bfloat .cap i{width:18px;height:18px;}
+  .bfloat .lab{font-weight:700;font-size:9.35px;letter-spacing:.14em;text-transform:uppercase;color:var(--sp-blue);padding:0 16px;white-space:nowrap;}
+
+  /* ---- modern chrome accents ---- */
+  .hero{--chrome:linear-gradient(165deg,#586a7f 0%,#2a3340 26%,#73869b 49%,#222a36 53%,#3d4a5c 78%,#5d6f85 100%);}
+  /* badge → sleek brushed-chrome chip (less cartoony, no bobbing) */
+  /* smaller badge bubble — shrink real dimensions (the hero fade-in animation overrides transform:scale here) */
+  .bfloat{background:rgba(255,255,255,.5);box-shadow:0 12px 30px rgba(10,37,64,.16),inset 0 0 0 1.5px rgba(255,255,255,.85);animation:none;padding:4px;}
+  .bfloat .cap{font-size:14px;padding:7px 13px;gap:7px;}
+  .bfloat .cap i{width:14px;height:14px;}
+  .bfloat .lab{font-size:8px;padding:0 13px;}
+  .bfloat .cap{background:var(--chrome);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -1px 0 rgba(0,0,0,.28),0 6px 18px rgba(10,37,64,.3);}
+  .bfloat .cap i{opacity:.92;}
+  .bfloat .lab{color:#54657a;}
+
+  /* ---- responsive ---- */
+  /* tablet & down: collapse two-column splits, ease section padding */
+  @media (max-width:980px){
+    .hero .wrap{grid-template-columns:minmax(0,1fr);gap:36px;padding-top:52px;padding-bottom:60px;}
+    /* the reel cluster's children are absolutely positioned (~580px wide); give it an
+       explicit width so margin:auto can actually center it instead of collapsing to 0 */
+    .reels{width:580px;max-width:100%;margin:0 auto;}
+    .stats .wrap{grid-template-columns:repeat(2,1fr);gap:28px 24px;}
+    section.block{padding:72px 0;}
+    .feat-grid{grid-template-columns:1fr;}
+    .sec-head{margin-bottom:40px;}
+    .mapwrap{height:480px;}
+  }
+  /* mobile: single column, scaled hero cluster, wrapped nav, edge-to-edge map card */
+  @media (max-width:640px){
+    .wrap{padding:0 20px;}
+    .navin{gap:14px;height:auto;flex-wrap:wrap;padding-top:12px;padding-bottom:12px;}
+    .navin .navlinks{position:static;transform:none;order:3;width:100%;margin-left:0;}
+    .navin .navcta{margin-left:auto;}
+    .hero .cta-row{flex-direction:column;align-items:stretch;}
+    .hero .cta-row .btn{justify-content:center;}
+    /* headline: break after "creators" so the line reads "who love …" */
+    .brk-m{display:inline;}
+    .brk-d{display:none;}
+    /* the reel cluster is absolutely positioned ~580px wide — scale it to fit */
+    .reels{height:282px;transform:scale(.58);transform-origin:top left;}
+    .stats .wrap{grid-template-columns:1fr;text-align:center;gap:22px;padding:32px 20px;}
+    section.block{padding:52px 0;}
+    /* smaller ticker band on phones */
+    .ticker .seg{gap:16px;padding:11px 8px;}
+    .ticker .seg b{font-size:18px;}
+    .ticker .dia{width:10px;height:10px;}
+    .ctaband .wrap{padding:64px 24px;}
+    .mapwrap{height:420px;}
+    .mapcard{left:14px;right:14px;width:auto;bottom:14px;}
+    .faq button{padding:18px;font-size:16px;}
+    .faq .ans p{padding:0 18px 20px;}
+    footer .top{flex-direction:column;gap:32px;}
+    footer .cols{gap:40px;}
+  }
+</style>
+<script>
+  /* add reveal-hiding class synchronously to prevent a flash of visible-then-hidden content */
+  if(!window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+    document.documentElement.classList.add('anim');
+  }
+</script>
+</head>
+<body>
+
+  <nav><div class="wrap navin">
+    <img class="logo" src="../../assets/logos/logo-lockup-blue.png" alt="Snackpass">
+    <div class="navlinks"><div class="toggle"><a class="on" href="index.html">creators</a><a href="brands.html">brands</a></div></div>
+    <div class="navcta">
+      <a class="btn btn-primary" href="#join">join the network</a>
+    </div>
+  </div></nav>
+
+  <header class="hero"><div class="wrap">
+    <div class="hero-copy">
+      <span class="badge2"><span class="bfloat"><span class="cap"><i data-lucide="rocket"></i> 20K+</span><span class="lab">creator network</span></span></span>
+      <h1 style="margin-top:26px;">built for creators<br class="brk-m"> who<br class="brk-d"> <span style="white-space:nowrap">love <span class="rot" id="rotWord"><span class="word">discovering</span></span></span></h1>
+      <p class="lede" style="margin-top:18px;">your next brand collab is around the corner. connect with local spots, get paid to post, and grow your account doing what you love.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary btn-lg" href="#join">apply for creator access</a>
+      </div>
+      <div class="meta">
+        <span class="avstack"><i><video class="avvid" src="../../assets/media/reel-wowtea.mp4" muted loop playsinline autoplay preload="metadata"></video></i><i><video class="avvid" src="../../assets/media/reel-katsu.mp4" muted loop playsinline autoplay preload="metadata"></video></i><i><video class="avvid" src="../../assets/media/reel-mochiholic.mp4" muted loop playsinline autoplay preload="metadata"></video></i><i><video class="avvid" src="../../assets/media/reel-ricedynasty.mp4" muted loop playsinline autoplay preload="metadata"></video></i></span>
+        joined by top creators in the US
+      </div>
+    </div>
+    <div class="reels">
+      <a class="reel r1 hasvid" href="https://www.instagram.com/reel/DXNwstxGCTX/" target="_blank" rel="noopener" aria-label="Watch reel on Instagram"><video class="reelvid" src="../../assets/media/reel-1.mp4" muted loop playsinline autoplay preload="auto"></video><span class="views"><span class="vcount" data-base="58400">58.4K</span> views</span><div class="ph"><span class="handle"><i data-lucide="badge-check" style="width:16px;height:16px;"></i> @bay.eats</span></div></a>
+      <a class="reel r2 hasvid" style="background:#0077c4" href="https://www.instagram.com/reel/DZgEqDPBIvB/" target="_blank" rel="noopener" aria-label="Watch reel on Instagram"><video class="reelvid" src="../../assets/media/reel-wowtea.mp4" muted loop playsinline autoplay preload="metadata"></video><span class="views"><span class="vcount" data-base="55900">55.9K</span> views</span><div class="ph"><span class="handle"><i data-lucide="badge-check" style="width:16px;height:16px;"></i> @wowtea</span></div></a>
+      <a class="reel r3 hasvid" style="background:#123a5c" href="https://www.instagram.com/reel/DZgBbFBSUIT/" target="_blank" rel="noopener" aria-label="Watch reel on Instagram"><video class="reelvid" src="../../assets/media/reel-eastbayspice.mp4" muted loop playsinline autoplay preload="metadata"></video><span class="views"><span class="vcount" data-base="32100">32.1K</span> views</span><div class="ph"><span class="handle"><i data-lucide="badge-check" style="width:16px;height:16px;"></i> @eastbayspice</span></div></a>
+      <div class="push-notif">
+        <div class="pn-icon"><img src="../../assets/logos/app-icon-blue.png" alt="Snackpass"></div>
+        <div class="pn-main">
+          <div class="pn-top"><span class="pn-app">Snackpass</span><span class="pn-time">now</span></div>
+          <div class="pn-title">Maru Sushi invited you to collab 💌</div>
+          <div class="pn-text">open to view collab details →</div>
+        </div>
+      </div>
+    </div>
+  </div></header>
+
+  <div class="tickerband" aria-hidden="true">
+    <div class="ticker" id="ticker">
+      <div class="seg">
+        <b>discover what's next</b><span class="dia"></span>
+        <b>get paid to post</b><span class="dia"></span>
+        <b>collab with local spots</b><span class="dia"></span>
+        <b>meet other creators</b><span class="dia"></span>
+        <b>no awkward DMs</b><span class="dia"></span>
+      </div>
+    </div>
+  </div>
+
+  <section class="block" id="why"><div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">why join</span>
+      <h2>everything you need to grow as a creator</h2>
+      <p>request collabs, get paid for content, and connect with local brands — no endless DMs, no awkward follow-ups.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat hi">
+        <div class="ic"><i data-lucide="sparkles"></i></div>
+        <h3>built by creators</h3>
+        <p>Snackpass was built by creators who understand the process. our platform makes it easier to collaborate with restaurants and grow your account.</p>
+      </div>
+      <div class="feat">
+        <div class="ic"><i data-lucide="messages-square"></i></div>
+        <h3>no more back &amp; forth</h3>
+        <p>request, manage, and track restaurant collaborations all in one place. no endless DM negotiations, awkward payment follow-ups, or unclear expectations.</p>
+      </div>
+      <div class="feat">
+        <div class="ic"><i data-lucide="gift"></i></div>
+        <h3>real opportunities</h3>
+        <p>meet other creators and unlock what's next.</p>
+        <div class="tags"><span class="tag">paid campaigns</span><span class="tag">collab requests</span><span class="tag">brand invites</span><span class="tag">creator events</span><span class="tag">merch</span></div>
+      </div>
+      <div class="feat">
+        <div class="ic"><i data-lucide="calendar-check"></i></div>
+        <h3>simple scheduling</h3>
+        <p>choose a date and time that works for you. get reminders before your visit and easily reschedule if plans change.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="block showcase" id="showcase"><div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">see it in action</span>
+      <h2>top creators. exclusive collaborations.</h2>
+      <p>join a growing network of creators connecting with brands in their city.</p>
+    </div>
+    <div class="reelrow">
+      <a class="scard" href="https://www.instagram.com/reel/DXvvtYyu8SI/" target="_blank" rel="noopener"><div class="vid" style="background:#0A2540"><video class="reelvid" src="../../assets/media/reel-rabbitrabbit.mp4" muted loop playsinline autoplay preload="metadata"></video><span class="who" style="position:absolute;bottom:14px;left:14px;z-index:2;">@rabbitrabbit</span></div><div class="cap"><b><span class="vcount" data-base="41800">41.8K</span> views</b></div></a>
+      <a class="scard" href="https://www.instagram.com/reel/DYFhwqhSToV/" target="_blank" rel="noopener"><div class="vid" style="background:#0077c4"><video class="reelvid" src="../../assets/media/reel-mochiholic.mp4" muted loop playsinline autoplay preload="metadata"></video><span class="who" style="position:absolute;bottom:14px;left:14px;z-index:2;">@mochiholic</span></div><div class="cap"><b><span class="vcount" data-base="22200">22.2K</span> views</b></div></a>
+      <a class="scard" href="https://www.instagram.com/reel/DXDKqSdPtos/" target="_blank" rel="noopener"><div class="vid" style="background:#123a5c"><video class="reelvid" src="../../assets/media/reel-idcafe.mp4" muted loop playsinline autoplay preload="metadata"></video></div><div class="cap"><b><span class="vcount" data-base="61000">61K</span> views</b></div></a>
+      <a class="scard" href="https://www.instagram.com/reel/DXDOQm9j0_g/" target="_blank" rel="noopener"><div class="vid" style="background:#0a5fa0"><video class="reelvid" src="../../assets/media/reel-katsu.mp4" muted loop playsinline autoplay preload="metadata"></video></div><div class="cap"><b><span class="vcount" data-base="98500">98.5K</span> views</b></div></a>
+      <a class="scard" href="https://www.instagram.com/reel/DWxlMs6RLij/" target="_blank" rel="noopener"><div class="vid" style="background:#0A2540"><video class="reelvid" src="../../assets/media/reel-ricedynasty.mp4" muted loop playsinline autoplay preload="metadata"></video></div><div class="cap"><b><span class="vcount" data-base="32300">32.3K</span> views</b></div></a>
+      <a class="scard" href="https://www.instagram.com/reel/DX3oC-nS9PN/" target="_blank" rel="noopener"><div class="vid" style="background:#0077c4"><video class="reelvid" src="../../assets/media/reel-2.mp4" muted loop playsinline autoplay preload="metadata"></video></div><div class="cap"><b><span class="vcount" data-base="20500">20.5K</span> views</b></div></a>
+    </div>
+  </div></section>
+
+  <section class="block mapsec" id="map"><div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">discover</span>
+      <h2>collabs happening near you</h2>
+      <p>tap around the map to see live restaurant collabs, creator events, and spots your friends already saved.</p>
+    </div>
+    <div class="mapwrap" id="mapwrap">
+      <div class="mapcanvas">
+        <div class="map-water"></div>
+        <div class="map-park"></div>
+        <div class="map-road" style="top:34%;"></div>
+        <div class="map-road" style="top:62%;height:11px;"></div>
+      </div>
+
+      <div class="map-legend"><span class="dotlive"></span> 14 collabs live right now</div>
+
+      <div class="pin live active" style="left:30%;top:40%;" data-name="matcha &amp; co" data-cui="cafe · 0.4 mi · paid collab" data-stk="sticker-sushi.png" data-rec="@bay.eats" data-friends="9">
+        <div class="chip"><img src="../../assets/stickers/sticker-sushi.png" alt=""></div><span class="ring"></span>
+      </div>
+      <div class="pin" style="left:54%;top:30%;" data-name="taqueria luz" data-cui="tacos · 0.8 mi · free meal" data-stk="sticker-pin.png" data-rec="@sf.bites" data-friends="12">
+        <div class="chip"><span class="av" style="background:var(--gradient-product)">L</span></div>
+      </div>
+      <div class="pin live" style="left:70%;top:52%;" data-name="night ramen" data-cui="ramen · 1.1 mi · paid campaign" data-stk="sticker-camera.png" data-rec="@nomnom.la" data-friends="6">
+        <div class="chip"><img src="../../assets/stickers/sticker-camera.png" alt=""></div><span class="ring"></span>
+      </div>
+      <div class="pin" style="left:42%;top:64%;" data-name="sunny brunch" data-cui="brunch · 0.6 mi · creator event" data-stk="sticker-pin.png" data-rec="@eatwithmia" data-friends="21">
+        <div class="chip"><span class="av" style="background:#2FC3FF">S</span></div>
+      </div>
+      <div class="pin" style="left:82%;top:36%;" data-name="pin &amp; pour" data-cui="coffee · 1.4 mi · free meal" data-stk="sticker-pin.png" data-rec="@hungryhana" data-friends="4">
+        <div class="chip"><span class="av" style="background:#0A2540">P</span></div>
+      </div>
+      <div class="pin" style="left:18%;top:60%;" data-name="bay sushi bar" data-cui="sushi · 0.3 mi · paid collab" data-stk="sticker-sushi.png" data-rec="@bay.eats" data-friends="17">
+        <div class="chip"><img src="../../assets/stickers/sticker-sushi.png" alt=""></div>
+      </div>
+
+      <div class="mapcard" id="mapcard">
+        <div class="row1">
+          <div class="thumb"><img id="mcThumb" src="../../assets/stickers/sticker-sushi.png" alt=""></div>
+          <div>
+            <div class="name" id="mcName">matcha &amp; co</div>
+            <div class="cui" id="mcCui">cafe · 0.4 mi · paid collab</div>
+          </div>
+          <span class="open"><i data-lucide="arrow-up-right" style="width:14px;height:14px;"></i> view</span>
+        </div>
+        <div class="rec">
+          <span class="faces"><i style="background:#2FC3FF"></i><i style="background:#C9D2FF"></i><i style="background:#0099FF"></i></span>
+          saved by <b id="mcRec">@bay.eats</b> &amp; <b id="mcFriends">9</b> friends
+        </div>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="ctaband" id="join">
+    <div class="wrap">
+      <h2>ready to grow? join the network.</h2>
+      <p>it's free. connect your instagram, get verified, and start collaborating with restaurants near you.</p>
+      <a class="btn btn-white btn-lg" href="#">get creator access →</a>
+    </div>
+  </section>
+
+  <section class="block" id="faq"><div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">faq</span>
+      <h2>what you need to know</h2>
+      <p>everything creators need to know before joining.</p>
+    </div>
+    <div class="faq-list" id="faqList">
+      <div class="faq"><button><span>who can join the snackpass creator network?</span><i class="chev" data-lucide="plus"></i></button><div class="ans"><p>food creators of all sizes are welcome to apply — as long as your profile is public, you have 500+ followers, and you regularly post clean, aesthetic, high-engaging food content. all applications are reviewed by our team before being accepted.</p></div></div>
+      <div class="faq"><button><span>how do restaurant collaborations work?</span><i class="chev" data-lucide="plus"></i></button><div class="ans"><p>browse restaurant collabs inside the Snackpass app or request to visit your favorite spots. restaurants can also invite creators directly to collaborate.</p></div></div>
+      <div class="faq"><button><span>do creators get paid?</span><i class="chev" data-lucide="plus"></i></button><div class="ans"><p>all collaborations include complimentary meals in exchange for content. some opportunities also include paid campaigns where creators can share their rates or apply directly.</p></div></div>
+      <div class="faq"><button><span>is there a cost to join?</span><i class="chev" data-lucide="plus"></i></button><div class="ans"><p>nope. joining the Snackpass creator network is completely free.</p></div></div>
+      <div class="faq"><button><span>what cities are you active in?</span><i class="chev" data-lucide="plus"></i></button><div class="ans"><p>we're expanding quickly and adding new cities all the time. if we're not in your city yet, we'll add you to the waitlist and keep you posted when opportunities launch near you.</p></div></div>
+    </div>
+  </div></section>
+
+  <footer><div class="wrap">
+    <div class="top">
+      <div>
+        <img class="logo" src="../../assets/logos/logo-lockup-blue.png" alt="Snackpass">
+        <p class="tag2">the marketing platform &amp; creator network for local businesses.</p>
+        <div class="socials">
+          <a href="#" aria-label="TikTok"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.05-2.82h-3.3v12.43a2.5 2.5 0 1 1-2.5-2.5c.2 0 .4.03.59.08V9.6a5.8 5.8 0 1 0 5.21 5.77V9.01a7.5 7.5 0 0 0 4.45 1.45V7.16a4.28 4.28 0 0 1-3.4-1.34z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" aria-label="X"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.22-6.82-5.96 6.82H1.66l7.73-8.84L1.25 2.25h6.83l4.71 6.23 5.45-6.23zm-1.16 17.52h1.83L7.01 4.13H5.04l12.04 15.64z"/></svg></a>
+        </div>
+      </div>
+      <div class="cols">
+        <div class="col"><h4>creators</h4><a href="#">join the network</a><a href="#">how it works</a><a href="#">creator events</a><a href="#">faq</a></div>
+        <div class="col"><h4>brands</h4><a href="#">for restaurants</a><a href="#">run a campaign</a><a href="#">pricing</a></div>
+        <div class="col"><h4>company</h4><a href="#">about</a><a href="#">careers</a><a href="#">contact</a></div>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>© 2026 Not Just Snacks, Inc.</span>
+      <span>privacy choices · terms · privacy</span>
+    </div>
+  </div></footer>
+
+  <script>
+    document.querySelectorAll('.faq button').forEach(b=>{
+      b.addEventListener('click',()=>{
+        const f=b.parentElement;
+        const ans=f.querySelector('.ans');
+        const open=f.classList.contains('open');
+        document.querySelectorAll('.faq').forEach(x=>{x.classList.remove('open');x.querySelector('.ans').style.maxHeight=null;});
+        if(!open){f.classList.add('open');ans.style.maxHeight=ans.scrollHeight+'px';}
+      });
+    });
+    if(window.lucide) lucide.createIcons();
+
+    // build a seamless marquee for the showcase reel row
+    (function(){
+      const row=document.querySelector('.reelrow');
+      if(!row) return;
+      const track=document.createElement('div');
+      track.className='reeltrack';
+      while(row.firstChild) track.appendChild(row.firstChild);
+      // duplicate the set so translateX(-50%) loops seamlessly
+      track.querySelectorAll('.scard').forEach(c=>{
+        const clone=c.cloneNode(true); clone.setAttribute('aria-hidden','true'); track.appendChild(clone);
+      });
+      row.appendChild(track);
+    })();
+
+    // reel view counts — count up, then keep climbing (live "going viral" feel). Runs after the
+    // marquee clones cards so duplicated cards animate too.
+    (function(){
+      const fmt=n=>n>=1000?(n/1000).toFixed(1).replace(/\.0$/,'')+'K':String(Math.round(n));
+      const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+      document.querySelectorAll('.vcount[data-base]').forEach(el=>{
+        const base=parseInt(el.dataset.base,10)||0;
+        if(reduce){el.textContent=fmt(base);return;}
+        const start=Math.round(base*0.55),dur=2200,t0=performance.now();
+        const ease=t=>1-Math.pow(1-t,3);
+        function up(now){
+          const t=Math.min(1,(now-t0)/dur);
+          el.textContent=fmt(start+(base-start)*ease(t));
+          if(t<1){requestAnimationFrame(up);}
+          else{let n=base;setInterval(()=>{n+=Math.floor(Math.random()*4)+1;el.textContent=fmt(n);},2000);}
+        }
+        requestAnimationFrame(up);
+      });
+    })();
+
+    // only play reels while they're on screen (keeps many videos light, esp. on mobile)
+    (function(){
+      const vids=document.querySelectorAll('video.reelvid, video.avvid');
+      if(!vids.length || !('IntersectionObserver' in window)) return;
+      const io=new IntersectionObserver(es=>es.forEach(e=>{
+        if(e.isIntersecting){ e.target.play().catch(()=>{}); } else { e.target.pause(); }
+      }),{threshold:0.2});
+      vids.forEach(v=>io.observe(v));
+    })();
+
+    // seamless ticker — repeat the phrases until one block spans the band,
+    // then duplicate that block so translateX(-50%) loops with no blank space
+    (function(){
+      const ticker=document.getElementById('ticker');
+      const seg=ticker && ticker.querySelector('.seg');
+      if(!seg) return;
+      const band=ticker.parentElement;
+      const itemsHTML=seg.innerHTML;
+      // size against the screen so the loop stays seamless even if the window is later maximized
+      const target=Math.max(band.offsetWidth, window.screen.width)+200;
+      let guard=0;
+      while(seg.scrollWidth < target && guard++<40){ seg.innerHTML += itemsHTML; }
+      const clone=seg.cloneNode(true);
+      clone.setAttribute('aria-hidden','true');
+      ticker.appendChild(clone);
+    })();
+
+    // scroll-reveal
+    if(document.documentElement.classList.contains('anim')){
+      const targets=document.querySelectorAll('.stats .stat,.sec-head,.feat,.ctaband .wrap>*,.faq,footer .top>*');
+      const io=new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); } });
+      },{threshold:0.15, rootMargin:'0px 0px -8% 0px'});
+      targets.forEach(t=>io.observe(t));
+    }
+
+    // rotating headline word
+    (function(){
+      const host=document.getElementById('rotWord');
+      if(!host) return;
+      const words=['discovering','tasting','sharing','posting','exploring'];
+      let i=0;
+      setInterval(()=>{
+        i=(i+1)%words.length;
+        const el=document.createElement('span');
+        el.className='word';
+        el.textContent=words[i];
+        host.innerHTML='';
+        host.appendChild(el);
+      },2200);
+    })();
+
+    // map pin interactions
+    (function(){
+      const pins=document.querySelectorAll('.pin');
+      if(!pins.length) return;
+      const card=document.getElementById('mapcard');
+      const set=(p)=>{
+        pins.forEach(x=>x.classList.remove('active'));
+        p.classList.add('active');
+        document.getElementById('mcName').innerHTML=p.dataset.name;
+        document.getElementById('mcCui').textContent=p.dataset.cui;
+        document.getElementById('mcRec').textContent=p.dataset.rec;
+        document.getElementById('mcFriends').textContent=p.dataset.friends;
+        document.getElementById('mcThumb').src='../../assets/stickers/'+p.dataset.stk;
+        card.style.transform='scale(.96)';
+        requestAnimationFrame(()=>{requestAnimationFrame(()=>{card.style.transform='none';});});
+      };
+      pins.forEach(p=>{
+        p.addEventListener('click',()=>set(p));
+        p.addEventListener('mouseenter',()=>set(p));
+      });
+    })();
+  </script>
+</body></html>

@@ -1,0 +1,57 @@
+/* Snackpass — Color tokens
+   "One unmistakable blue, one signature gradient."
+   Two blues do the heavy lifting; neutrals stay quiet so the blue can sing. */
+:root {
+  /* ---- Brand blues ---- */
+  --sp-blue: #0099FF;        /* Snackpass Blue — primary, the anchor */
+  --sp-sky:  #2FC3FF;        /* Sky — secondary, accents & gradient */
+
+  /* Tints/shades of the anchor for states & surfaces */
+  --sp-blue-700: #0077E6;    /* pressed / darker */
+  --sp-blue-600: #0088F5;    /* hover */
+  --sp-blue-100: #CFE9FF;    /* light fill */
+  --sp-blue-050: #EDF4FF;    /* = Mist */
+
+  /* ---- Neutrals ---- */
+  --sp-ink:   #000000;       /* Ink — true black for type & one-color marks */
+  --sp-navy:  #0A2540;       /* deep ink-navy used on the monochrome lockup */
+  --sp-slate: #5B6B7B;       /* muted body / secondary text */
+  --sp-mist:  #EDF4FF;       /* coolest off-white surface */
+  --sp-cloud: #F6F9FE;       /* near-white panel */
+  --sp-line:  #E2EAF3;       /* hairline borders on light */
+  --sp-white: #FFFFFF;
+
+  /* a whisper of lavender lives only inside the aurora gradient */
+  --sp-lavender: #C9D2FF;
+
+  /* ---- Semantic aliases ---- */
+  --text-strong:   var(--sp-ink);
+  --text-body:     var(--sp-navy);
+  --text-muted:    var(--sp-slate);
+  --text-on-blue:  var(--sp-white);
+  --text-accent:   var(--sp-blue);
+
+  --surface-page:  var(--sp-white);
+  --surface-card:  var(--sp-white);
+  --surface-sunken:var(--sp-mist);
+  --surface-cloud: var(--sp-cloud);
+  --surface-invert:var(--sp-blue);
+
+  --border-hairline: var(--sp-line);
+  --border-strong:   var(--sp-navy);
+
+  --accent:        var(--sp-blue);
+  --accent-soft:   var(--sp-sky);
+  --accent-hover:  var(--sp-blue-600);
+  --accent-press:  var(--sp-blue-700);
+
+  /* ---- Signature gradients ---- */
+  /* Product gradient — crisp 135° blue→sky for CTAs, app icon, badges */
+  --gradient-product: linear-gradient(135deg, #0099FF 0%, #2FC3FF 100%);
+  /* Aurora — soft brand-moment wash for covers, dividers, hero space */
+  --gradient-aurora:
+    radial-gradient(120% 120% at 18% 0%, #2FC3FF 0%, rgba(47,195,255,0) 55%),
+    radial-gradient(110% 130% at 92% 12%, #C9D2FF 0%, rgba(201,210,255,0) 50%),
+    radial-gradient(140% 120% at 60% 100%, #0099FF 0%, rgba(0,153,255,0) 60%),
+    linear-gradient(160deg, #EDF4FF 0%, #FFFFFF 70%);
+}

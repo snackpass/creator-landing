@@ -1,0 +1,35 @@
+/* Snackpass — Typography tokens
+   Bricolage Grotesque for character, Inter for clarity. */
+:root {
+  --font-display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+  --font-text: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Display weights (Bricolage): 400 / 600 / 800
+     Text weights (Inter): 400 / 500 / 700 */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+
+  /* Tracking — display is set tight, eyebrows wide */
+  --track-display: -0.025em;   /* ~ -2% on headlines */
+  --track-tight: -0.01em;
+  --track-normal: 0;
+  --track-eyebrow: 0.24em;     /* uppercase Inter labels */
+
+  --leading-tight: 1.02;
+  --leading-snug: 1.15;
+  --leading-body: 1.5;
+
+  /* Type scale (px). Display = Bricolage; body/UI = Inter */
+  --fs-eyebrow: 14px;
+  --fs-caption: 14px;
+  --fs-body: 17px;
+  --fs-body-lg: 20px;
+  --fs-title-sm: 24px;
+  --fs-title: 32px;
+  --fs-display-sm: 44px;
+  --fs-display: 70px;
+  --fs-display-xl: 104px;
+}

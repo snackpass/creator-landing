@@ -1,0 +1,7 @@
+/* Snackpass Brand OS — global entry point.
+   Consumers link only this file. Keep it a list of @imports. */
+@import "./tokens/fonts.css";
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/spacing.css";
+@import "./tokens/effects.css";

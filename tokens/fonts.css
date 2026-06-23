@@ -1,0 +1,42 @@
+/* Snackpass webfonts.
+   Bricolage Grotesque (display) is self-hosted from assets/fonts/.
+   Inter (text) is loaded from Google Fonts. */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("../assets/fonts/BricolageGrotesque-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("../assets/fonts/BricolageGrotesque-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("../assets/fonts/BricolageGrotesque-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("../assets/fonts/BricolageGrotesque-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+/* Bold is the heaviest provided weight; map 800 (display extrabold usage)
+   to the Bold file so headlines render crisp, never synthetic. */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("../assets/fonts/BricolageGrotesque-Bold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
