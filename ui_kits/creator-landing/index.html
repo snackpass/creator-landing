@@ -212,7 +212,7 @@
   .mapcanvas{position:absolute;inset:0;}
   .mapcanvas::before{content:"";position:absolute;inset:-25%;background:repeating-linear-gradient(0deg,transparent 0 76px,rgba(10,37,64,.045) 76px 78px),repeating-linear-gradient(90deg,transparent 0 94px,rgba(10,37,64,.045) 94px 96px);transform:rotate(-8deg);}
   .map-park{position:absolute;width:250px;height:200px;left:6%;bottom:7%;background:rgba(47,195,255,.16);border-radius:46% 54% 60% 40%/54% 42% 58% 46%;}
-  .map-water{position:absolute;width:420px;height:560px;right:-150px;top:-80px;background:linear-gradient(160deg,rgba(0,153,255,.13),rgba(47,195,255,.07));transform:rotate(16deg);border-radius:44%;}
+  .map-water{position:absolute;width:300px;height:680px;left:-130px;top:-60px;background:linear-gradient(160deg,rgba(0,153,255,.13),rgba(47,195,255,.07));transform:rotate(-12deg);border-radius:44%;}
   .map-road{position:absolute;height:16px;background:#fff;box-shadow:0 0 0 1px var(--sp-line);left:-12%;right:-12%;transform:rotate(-8deg);border-radius:12px;}
 
   .pin{position:absolute;transform:translate(-50%,-100%);cursor:pointer;z-index:2;transition:transform var(--dur-base) var(--ease-spring);}
@@ -223,7 +223,8 @@
   .pin .chip>*{transform:rotate(-45deg);}
   .pin .chip img{width:30px;display:block;}
   .pin .chip .av{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;color:#fff;font-size:18px;}
-  .pin:hover .chip img{animation:wiggle .55s var(--ease-out);}
+  .pin .chip .emoji{font-size:27px;line-height:1;display:block;}
+  .pin:hover .chip img,.pin:hover .chip .emoji{animation:wiggle .55s var(--ease-out);}
   .pin .ring{position:absolute;left:50%;top:50%;width:54px;height:54px;border-radius:50%;border:2.5px solid var(--sp-blue);transform:translate(-50%,-50%);pointer-events:none;}
   .pin.live .ring{animation:pulsering 2.4s var(--ease-out) infinite;}
 
@@ -231,6 +232,7 @@
   .mapcard .row1{display:flex;align-items:center;gap:12px;}
   .mapcard .thumb{width:54px;height:54px;border-radius:14px;flex:none;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--sp-mist);}
   .mapcard .thumb img{width:34px;}
+  .mapcard .thumb-emoji{font-size:34px;line-height:1;}
   .mapcard .name{font-family:var(--font-display);font-weight:800;font-size:20px;letter-spacing:-0.02em;text-transform:lowercase;color:var(--sp-navy);line-height:1;}
   .mapcard .cui{font-size:13.5px;color:var(--sp-slate);margin-top:5px;}
   .mapcard .open{margin-left:auto;flex:none;background:var(--sp-mist);color:var(--sp-blue);font-weight:700;font-size:12px;padding:7px 11px;border-radius:var(--radius-pill);display:flex;align-items:center;gap:5px;}
@@ -413,8 +415,7 @@
   <section class="block mapsec" id="map"><div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">discover</span>
-      <h2>collabs happening near you</h2>
-      <p>tap around the map to see live restaurant collabs, creator events, and spots your friends already saved.</p>
+      <h2>collabs happening in the bay</h2>
     </div>
     <div class="mapwrap" id="mapwrap">
       <div class="mapcanvas">
@@ -424,40 +425,61 @@
         <div class="map-road" style="top:62%;height:11px;"></div>
       </div>
 
-      <div class="map-legend"><span class="dotlive"></span> 14 collabs live right now</div>
+      <div class="map-legend"><span class="dotlive"></span> collabs live right now</div>
 
-      <div class="pin live active" style="left:30%;top:40%;" data-name="matcha &amp; co" data-cui="cafe · 0.4 mi · paid collab" data-stk="sticker-sushi.png" data-rec="@bay.eats" data-friends="9">
-        <div class="chip"><img src="../../assets/stickers/sticker-sushi.png" alt=""></div><span class="ring"></span>
-      </div>
-      <div class="pin" style="left:54%;top:30%;" data-name="taqueria luz" data-cui="tacos · 0.8 mi · free meal" data-stk="sticker-pin.png" data-rec="@sf.bites" data-friends="12">
-        <div class="chip"><span class="av" style="background:var(--gradient-product)">L</span></div>
-      </div>
-      <div class="pin live" style="left:70%;top:52%;" data-name="night ramen" data-cui="ramen · 1.1 mi · paid campaign" data-stk="sticker-camera.png" data-rec="@nomnom.la" data-friends="6">
-        <div class="chip"><img src="../../assets/stickers/sticker-camera.png" alt=""></div><span class="ring"></span>
-      </div>
-      <div class="pin" style="left:42%;top:64%;" data-name="sunny brunch" data-cui="brunch · 0.6 mi · creator event" data-stk="sticker-pin.png" data-rec="@eatwithmia" data-friends="21">
-        <div class="chip"><span class="av" style="background:#2FC3FF">S</span></div>
-      </div>
-      <div class="pin" style="left:82%;top:36%;" data-name="pin &amp; pour" data-cui="coffee · 1.4 mi · free meal" data-stk="sticker-pin.png" data-rec="@hungryhana" data-friends="4">
-        <div class="chip"><span class="av" style="background:#0A2540">P</span></div>
-      </div>
-      <div class="pin" style="left:18%;top:60%;" data-name="bay sushi bar" data-cui="sushi · 0.3 mi · paid collab" data-stk="sticker-sushi.png" data-rec="@bay.eats" data-friends="17">
-        <div class="chip"><img src="../../assets/stickers/sticker-sushi.png" alt=""></div>
+      <!-- pin positions roughly mirror real berkeley geography: bay/west berkeley far left, downtown shattuck/milvia center, telegraph + campus cluster lower-right, northside (euclid) up top -->
+
+      <!-- west berkeley (near the bay) -->
+      <div class="pin" style="left:7%;top:30%;" data-name="funky elephant" data-cui="thai · 1.9 mi" data-emoji="🥘">
+        <div class="chip"><span class="emoji">🥘</span></div>
       </div>
 
-      <div class="mapcard" id="mapcard">
-        <div class="row1">
-          <div class="thumb"><img id="mcThumb" src="../../assets/stickers/sticker-sushi.png" alt=""></div>
-          <div>
-            <div class="name" id="mcName">matcha &amp; co</div>
-            <div class="cui" id="mcCui">cafe · 0.4 mi · paid collab</div>
-          </div>
-          <span class="open"><i data-lucide="arrow-up-right" style="width:14px;height:14px;"></i> view</span>
-        </div>
-        <div class="rec">
-          <span class="faces"><i style="background:#2FC3FF"></i><i style="background:#C9D2FF"></i><i style="background:#0099FF"></i></span>
-          saved by <b id="mcRec">@bay.eats</b> &amp; <b id="mcFriends">9</b> friends
-        </div>
+      <!-- northside / euclid (north of campus) -->
+      <div class="pin" style="left:52%;top:16%;" data-name="la val's pizza" data-cui="pizza · 0.7 mi" data-emoji="🍕">
+        <div class="chip"><span class="emoji">🍕</span></div>
+      </div>
+      <div class="pin live" style="left:58%;top:22%;" data-name="mind coffee" data-cui="coffee · 0.7 mi" data-emoji="☕">
+        <div class="chip"><span class="emoji">☕</span></div><span class="ring"></span>
+      </div>
+
+      <!-- downtown (university / shattuck / milvia) -->
+      <div class="pin" style="left:38%;top:30%;" data-name="teaspoon berkeley" data-cui="boba · 0.6 mi" data-emoji="🧋">
+        <div class="chip"><span class="emoji">🧋</span></div>
+      </div>
+      <div class="pin live" style="left:30%;top:34%;" data-name="sobo ramen" data-cui="ramen · 0.7 mi" data-emoji="🍜">
+        <div class="chip"><span class="emoji">🍜</span></div><span class="ring"></span>
+      </div>
+      <div class="pin" style="left:34%;top:40%;" data-name="crave subs" data-cui="subs · 0.4 mi" data-emoji="🥪">
+        <div class="chip"><span class="emoji">🥪</span></div>
+      </div>
+      <div class="pin live active" style="left:41%;top:44%;" data-name="id cafe" data-cui="south indian · 0.3 mi" data-emoji="🍛">
+        <div class="chip"><span class="emoji">🍛</span></div><span class="ring"></span>
+      </div>
+
+      <!-- campus south edge / telegraph -->
+      <div class="pin" style="left:49%;top:46%;" data-name="binge coffee house" data-cui="vietnamese coffee · 0.2 mi" data-emoji="☕">
+        <div class="chip"><span class="emoji">☕</span></div>
+      </div>
+      <div class="pin live" style="left:72%;top:50%;" data-name="hankki" data-cui="korean · 0.5 mi" data-emoji="🍲">
+        <div class="chip"><span class="emoji">🍲</span></div><span class="ring"></span>
+      </div>
+      <div class="pin" style="left:81%;top:55%;" data-name="thai basil" data-cui="thai · 0.6 mi" data-emoji="🌶️">
+        <div class="chip"><span class="emoji">🌶️</span></div>
+      </div>
+      <div class="pin live" style="left:60%;top:56%;" data-name="ga-ra" data-cui="vietnamese coffee · 0.4 mi" data-emoji="☕">
+        <div class="chip"><span class="emoji">☕</span></div><span class="ring"></span>
+      </div>
+      <div class="pin" style="left:67%;top:58%;" data-name="noodle dynasty" data-cui="chinese noodles · 0.4 mi" data-emoji="🥡">
+        <div class="chip"><span class="emoji">🥡</span></div>
+      </div>
+      <div class="pin" style="left:58%;top:64%;" data-name="gurkha kitchen express" data-cui="nepali · 0.5 mi" data-emoji="🥟">
+        <div class="chip"><span class="emoji">🥟</span></div>
+      </div>
+      <div class="pin live" style="left:65%;top:65%;" data-name="el trompudo" data-cui="tacos · 0.5 mi" data-emoji="🌮">
+        <div class="chip"><span class="emoji">🌮</span></div><span class="ring"></span>
+      </div>
+      <div class="pin" style="left:61%;top:72%;" data-name="kuboba spot" data-cui="filipino · boba · 0.6 mi" data-emoji="🧋">
+        <div class="chip"><span class="emoji">🧋</span></div>
       </div>
     </div>
   </div></section>
@@ -493,18 +515,15 @@
         <div class="socials">
           <a href="#" aria-label="TikTok"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.05-2.82h-3.3v12.43a2.5 2.5 0 1 1-2.5-2.5c.2 0 .4.03.59.08V9.6a5.8 5.8 0 1 0 5.21 5.77V9.01a7.5 7.5 0 0 0 4.45 1.45V7.16a4.28 4.28 0 0 1-3.4-1.34z"/></svg></a>
           <a href="#" aria-label="Instagram"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
-          <a href="#" aria-label="X"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.22-6.82-5.96 6.82H1.66l7.73-8.84L1.25 2.25h6.83l4.71 6.23 5.45-6.23zm-1.16 17.52h1.83L7.01 4.13H5.04l12.04 15.64z"/></svg></a>
         </div>
       </div>
       <div class="cols">
         <div class="col"><h4>creators</h4><a href="apply.html">join the network</a><a href="#">how it works</a><a href="#">creator events</a><a href="#">faq</a></div>
         <div class="col"><h4>brands</h4><a href="#">for restaurants</a><a href="#">run a campaign</a><a href="#">pricing</a></div>
-        <div class="col"><h4>company</h4><a href="#">about</a><a href="#">careers</a><a href="#">contact</a></div>
       </div>
     </div>
     <div class="bottom">
       <span>© 2026 Not Just Snacks, Inc.</span>
-      <span>privacy choices · terms · privacy</span>
     </div>
   </div></footer>
 
@@ -610,17 +629,9 @@
     (function(){
       const pins=document.querySelectorAll('.pin');
       if(!pins.length) return;
-      const card=document.getElementById('mapcard');
       const set=(p)=>{
         pins.forEach(x=>x.classList.remove('active'));
         p.classList.add('active');
-        document.getElementById('mcName').innerHTML=p.dataset.name;
-        document.getElementById('mcCui').textContent=p.dataset.cui;
-        document.getElementById('mcRec').textContent=p.dataset.rec;
-        document.getElementById('mcFriends').textContent=p.dataset.friends;
-        document.getElementById('mcThumb').src='../../assets/stickers/'+p.dataset.stk;
-        card.style.transform='scale(.96)';
-        requestAnimationFrame(()=>{requestAnimationFrame(()=>{card.style.transform='none';});});
       };
       pins.forEach(p=>{
         p.addEventListener('click',()=>set(p));
