@@ -14,8 +14,6 @@
 
   @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
   @keyframes popIn{0%{opacity:0;transform:scale(.9) translateY(8px);}100%{opacity:1;transform:scale(1) translateY(0);}}
-  @keyframes checkPop{0%{transform:scale(0) rotate(-25deg);}60%{transform:scale(1.15) rotate(4deg);}100%{transform:scale(1) rotate(0);}}
-  @keyframes ringPulse{0%{transform:scale(.7);opacity:.5;}100%{transform:scale(1.9);opacity:0;}}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;}}
 
   /* ---- buttons ---- */
@@ -97,24 +95,23 @@
   .select.placeholder{color:#9aa8b6;}
   .select-wrap .chev{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--sp-slate);pointer-events:none;}
 
-  /* OTP */
-  .otp{display:flex;gap:10px;}
-  .otp input{width:100%;height:58px;text-align:center;font-family:var(--font-display);font-weight:800;font-size:24px;border:1.5px solid var(--sp-line);border-radius:var(--radius-md);outline:none;color:var(--sp-navy);transition:border-color var(--dur-base),box-shadow var(--dur-base);}
-  .otp input:focus{border-color:var(--sp-blue);box-shadow:var(--focus-ring);}
-  .resend{font-size:13.5px;color:var(--sp-slate);margin-top:14px;text-align:center;}
-  .resend a{color:var(--sp-blue);font-weight:600;}
   .fineprint{font-size:12.5px;color:var(--sp-slate);line-height:1.5;margin-top:14px;text-align:center;}
   .fineprint a{color:var(--sp-blue);font-weight:600;}
 
   /* confirmation */
   .result{text-align:center;padding-top:6px;}
-  .seal{position:relative;width:78px;height:78px;margin:0 auto 18px;}
-  .seal .ring{position:absolute;inset:0;border-radius:50%;border:2.5px solid var(--sp-blue);animation:ringPulse 2s var(--ease-out) infinite;}
-  .seal .core{position:absolute;inset:0;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;background:var(--gradient-product);box-shadow:var(--shadow-blue);animation:checkPop .55s var(--ease-spring) both;}
+  .creator-badge{width:92px;height:92px;margin:0 auto 16px;animation:popIn .5s var(--ease-spring) both;}
+  .creator-badge img{width:100%;height:100%;object-fit:contain;display:block;}
   .result h2{font-size:30px;margin-bottom:8px;}
   .result .sub{font-size:15.5px;margin-bottom:0;}
   .ig-pill{display:inline-flex;align-items:center;gap:8px;background:var(--sp-mist);color:var(--sp-blue);font-weight:700;font-size:14px;padding:8px 15px;border-radius:var(--radius-pill);margin:16px 0 4px;}
-  .submit-row{margin-top:22px;}
+  .soon-seal{width:66px;height:66px;border-radius:50%;background:var(--gradient-product);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;box-shadow:var(--shadow-blue-sm);animation:popIn .5s var(--ease-spring) both;}
+  .followus{margin-top:22px;display:flex;align-items:center;justify-content:center;gap:9px;}
+  .followus .lbl{font-size:13px;font-weight:600;color:var(--sp-slate);}
+  .socials{display:flex;align-items:center;gap:9px;}
+  .socials a{display:inline-flex;align-items:center;justify-content:center;color:var(--sp-slate);transition:color var(--dur-base),transform var(--dur-fast) var(--ease-spring);}
+  .socials a:hover{color:var(--sp-blue);transform:translateY(-1px);}
+  .socials svg{width:17px;height:17px;}
 
   /* toast */
   .toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);background:var(--sp-navy);color:#fff;font-weight:600;font-size:14.5px;padding:13px 22px;border-radius:var(--radius-pill);box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:9px;opacity:0;pointer-events:none;transition:opacity var(--dur-base),transform var(--dur-base) var(--ease-spring);z-index:80;}
@@ -171,7 +168,7 @@
 
       <!-- FORM -->
       <section class="pane show" data-pane="form">
-        <div id="phoneGroup">
+        <div>
           <div class="field">
             <label for="name">your name</label>
             <input class="input" id="name" placeholder="first &amp; last name" autocomplete="name">
@@ -224,31 +221,28 @@
             </div>
           </div>
 
-          <button class="btn btn-primary btn-lg btn-block" id="sendCode">text me a code</button>
+          <button class="btn btn-primary btn-lg btn-block" id="submitApp">submit application</button>
           <p class="fineprint">by continuing you agree to our <a href="#">terms</a> &amp; <a href="#">privacy policy</a>, and to receive texts from Snackpass.</p>
           <p class="fineprint" style="margin-top:6px;">prefer to dm? <a href="apply-dm.html">apply on instagram →</a></p>
         </div>
-
-        <div id="codeGroup" style="display:none;">
-          <div class="field">
-            <label>enter the 6-digit code</label>
-            <div class="otp" id="otp">
-              <input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric">
-            </div>
-          </div>
-          <button class="btn btn-primary btn-lg btn-block" id="verifyCode">submit application</button>
-          <p class="resend">didn't get it? <a href="#" id="resend">resend code</a> · <a href="#" id="editPhone">change number</a></p>
-        </div>
       </section>
 
-      <!-- CONFIRMATION -->
+      <!-- CONFIRMATION — bay area: application received / other cities: waitlist -->
       <section class="pane" data-pane="done">
         <div class="result">
-          <div class="seal"><span class="ring"></span><span class="core"><i data-lucide="check" style="width:38px;height:38px;stroke-width:3;"></i></span></div>
-          <h2>application received ✨</h2>
-          <p class="sub">thanks for applying to the snackpass creator network! our team reviews every creator — we'll text you about next steps soon.</p>
-          <span class="ig-pill" id="donePill">@yourhandle</span>
-          <div class="submit-row"><a class="btn btn-ghost btn-block" href="index.html">back to home</a></div>
+          <div id="doneBay">
+            <div class="creator-badge"><img src="../../assets/badges/snackpass-creator-badge.png" alt="Snackpass creator badge"></div>
+            <h2>application received ✨</h2>
+            <p class="sub">thanks for applying to the snackpass creator network! our team reviews every creator — we'll text you about next steps soon.</p>
+            <span class="ig-pill done-pill">@yourhandle</span>
+          </div>
+          <div id="doneSoon" style="display:none;">
+            <div class="soon-seal"><i data-lucide="message-circle" style="width:32px;height:32px;stroke-width:2.2;"></i></div>
+            <h2>you're on the list ✨</h2>
+            <p class="sub">thanks for applying! our team will be in touch via text soon about creator collabs in <span id="soonCity">your city</span>.</p>
+            <span class="ig-pill done-pill">@yourhandle</span>
+          </div>
+          <div class="followus"><div class="lbl">follow @snackpass</div><div class="socials"><a href="https://instagram.com/snackpass" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@snackpass" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.05-2.82h-3.3v12.43a2.5 2.5 0 1 1-2.5-2.5c.2 0 .4.03.59.08V9.6a5.8 5.8 0 1 0 5.21 5.77V9.01a7.5 7.5 0 0 0 4.45 1.45V7.16a4.28 4.28 0 0 1-3.4-1.34z"/></svg></a></div></div>
         </div>
       </section>
 
@@ -287,8 +281,9 @@
       if(isOther) otherCity.focus();
     });
 
-    // submit form -> code
-    $('#sendCode').addEventListener('click',()=>{
+    // submit form -> city-based confirmation
+    const ACTIVE_CITIES=['bay area']; // bay area -> application received; every other city -> waitlist
+    $('#submitApp').addEventListener('click',()=>{
       const name=$('#name').value.trim();
       const handle=$('#handle').value.trim().replace(/^@+/,'');
       const city=citySel.value;
@@ -300,24 +295,12 @@
       if(city==='other' && !otherCityVal){ otherCity.focus(); toast('tell us which city'); return; }
       if(v.replace(/\D/g,'').length<7){ $('#ph').focus(); toast('enter a valid phone number'); return; }
       // reflect handle on the confirmation pill
-      $('#donePill').innerHTML=(platform==='tiktok'?TT_SVG(15):IG_SVG(15))+' @'+handle;
-      $('#phoneGroup').style.display='none';
-      $('#codeGroup').style.display='block';
-      toast('code sent — use any 6 digits');
-      $('#otp input')[0].focus();
-    });
-    $('#editPhone')?.addEventListener('click',e=>{e.preventDefault();$('#codeGroup').style.display='none';$('#phoneGroup').style.display='block';});
-    $('#resend')?.addEventListener('click',e=>{e.preventDefault();toast('new code sent');});
-
-    // otp auto-advance
-    const otp=$$('#otp input');
-    otp.forEach((inp,i)=>{
-      inp.addEventListener('input',()=>{ if(inp.value && i<otp.length-1) otp[i+1].focus(); });
-      inp.addEventListener('keydown',e=>{ if(e.key==='Backspace' && !inp.value && i>0) otp[i-1].focus(); });
-    });
-
-    // submit -> confirmation
-    $('#verifyCode').addEventListener('click',()=>{
+      $$('.done-pill').forEach(p=>p.innerHTML=(platform==='tiktok'?TT_SVG(15):IG_SVG(15))+' @'+handle);
+      // bay area gets the received screen; everywhere else joins the waitlist
+      const active=ACTIVE_CITIES.includes(city);
+      $('#doneBay').style.display=active?'block':'none';
+      $('#doneSoon').style.display=active?'none':'block';
+      if(!active) $('#soonCity').textContent=(city==='other'?otherCityVal:city);
       $$('.pane').forEach(p=>p.classList.toggle('show', p.dataset.pane==='done'));
       $('.card').scrollIntoView({behavior:'smooth',block:'nearest'});
       if(window.lucide) lucide.createIcons();
