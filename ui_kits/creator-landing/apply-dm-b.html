@@ -326,7 +326,7 @@
     });
 
     // submit -> save to Google Sheet, then show the city-based confirmation
-    const SHEET_ENDPOINT = 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL'; // <-- your Sheet web-app URL
+    const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxNB_FBTZwlrczeU-H9AWC7D_uAxADphQo8wOADIIGZrCRlJCiH-Xl1CgrK8ihsEsma/exec'; // Google Sheet web-app
     const ACTIVE_CITIES = ['bay area']; // bay area -> download app; every other city -> team will be in touch
     $('#submitApply').addEventListener('click', async ()=>{
       const name=$('#name').value.trim();
