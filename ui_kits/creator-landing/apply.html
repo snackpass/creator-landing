@@ -282,7 +282,7 @@
     });
 
     // submit form -> save to Google Sheet, then show the city-based confirmation
-    const SHEET_ENDPOINT='https://script.google.com/macros/s/AKfycbxNB_FBTZwlrczeU-H9AWC7D_uAxADphQo8wOADIIGZrCRlJCiH-Xl1CgrK8ihsEsma/exec'; // same Google Sheet web-app as apply-dm-b
+    const SHEET_ENDPOINT='https://script.google.com/macros/s/AKfycbzFBberIwTKR2mT_UZjSxuK_xQhAoYCe8lfwH8ytPPg7Z1dTm3m_eJUQd5XAxrtQNkE/exec'; // same Google Sheet web-app as apply-dm-b
     const ACTIVE_CITIES=['bay area']; // bay area -> application received; every other city -> waitlist
     $('#submitApp').addEventListener('click',async ()=>{
       const name=$('#name').value.trim();
