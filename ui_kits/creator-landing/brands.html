@@ -85,6 +85,9 @@
   .avstack{display:flex;}
   .avstack i{width:34px;height:34px;border-radius:50%;border:2.5px solid #fff;margin-left:-9px;display:block;}
   .avstack i:first-child{margin-left:0;}
+  .avstack i.brand{background:#fff;overflow:hidden;box-shadow:var(--shadow-xs);}
+  .avstack i.brand.dark{background:#16202e;}
+  .avstack i .brandlogo{width:100%;height:100%;object-fit:contain;padding:4px;border-radius:50%;display:block;}
 
   /* hero visual — AI autopilot panel */
   .aipanel{position:relative;}
@@ -324,7 +327,7 @@
         <a class="btn btn-primary btn-lg" href="#apply">get started</a>
       </div>
       <div class="meta">
-        <span class="avstack"><i style="background:#2FC3FF"></i><i style="background:#C9D2FF"></i><i style="background:#0099FF"></i><i style="background:#7Fd4ff"></i></span>
+        <span class="avstack"><i class="brand"><img class="brandlogo" src="../../assets/logos/brands/mind-coffee.jpg" alt="Mind Coffee"></i><i class="brand"><img class="brandlogo" src="../../assets/logos/brands/yi-fang.jpg" alt="Yi Fang"></i><i class="brand"><img class="brandlogo" src="../../assets/logos/brands/chicha-san-chen.png" alt="CHICHA San Chen"></i><i class="brand dark"><img class="brandlogo" src="../../assets/logos/brands/la-marcha.png" alt="La Marcha"></i></span>
         trusted by 1,000s of local restaurants &amp; brands
       </div>
     </div>
@@ -389,21 +392,6 @@
     </div>
   </div></section>
 
-  <section class="block proof"><div class="wrap">
-    <div>
-      <span class="eyebrow">the results</span>
-      <h2>more reels, more reviews, more regulars.</h2>
-      <p class="quote">"we went from chasing influencers to having a full content calendar run itself. Snackpass AI booked the creators, and the line out the door did the rest."</p>
-      <div class="by"><i></i><div><b>maria s.</b><span>owner · luz taqueria, austin</span></div></div>
-    </div>
-    <div class="resultcard">
-      <div class="r"><div class="v">+38%</div><div class="l">new customers in 60 days</div></div>
-      <div class="r"><div class="v">412K</div><div class="l">local views per month</div></div>
-      <div class="r"><div class="v">22</div><div class="l">creator posts, zero DMs sent</div></div>
-      <div class="r"><div class="v">4.9★</div><div class="l">avg rating across campaigns</div></div>
-    </div>
-  </div></section>
-
   <section class="block applysec" id="apply"><div class="wrap">
     <div class="applycard">
       <span class="eyebrow">get started</span>
@@ -437,7 +425,6 @@
         <div class="socials">
           <a href="#" aria-label="TikTok"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.05-2.82h-3.3v12.43a2.5 2.5 0 1 1-2.5-2.5c.2 0 .4.03.59.08V9.6a5.8 5.8 0 1 0 5.21 5.77V9.01a7.5 7.5 0 0 0 4.45 1.45V7.16a4.28 4.28 0 0 1-3.4-1.34z"/></svg></a>
           <a href="#" aria-label="Instagram"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
-          <a href="#" aria-label="X"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.22-6.82-5.96 6.82H1.66l7.73-8.84L1.25 2.25h6.83l4.71 6.23 5.45-6.23zm-1.16 17.52h1.83L7.01 4.13H5.04l12.04 15.64z"/></svg></a>
         </div>
       </div>
       <div class="cols">
@@ -447,7 +434,6 @@
     </div>
     <div class="bottom">
       <span>© 2026 Not Just Snacks, Inc.</span>
-      <span>privacy choices · terms · privacy</span>
     </div>
   </div></footer>
 
