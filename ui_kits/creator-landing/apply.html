@@ -281,9 +281,10 @@
       if(isOther) otherCity.focus();
     });
 
-    // submit form -> city-based confirmation
+    // submit form -> save to Google Sheet, then show the city-based confirmation
+    const SHEET_ENDPOINT='https://script.google.com/macros/s/AKfycbxNB_FBTZwlrczeU-H9AWC7D_uAxADphQo8wOADIIGZrCRlJCiH-Xl1CgrK8ihsEsma/exec'; // same Google Sheet web-app as apply-dm-b
     const ACTIVE_CITIES=['bay area']; // bay area -> application received; every other city -> waitlist
-    $('#submitApp').addEventListener('click',()=>{
+    $('#submitApp').addEventListener('click',async ()=>{
       const name=$('#name').value.trim();
       const handle=$('#handle').value.trim().replace(/^@+/,'');
       const city=citySel.value;
@@ -294,6 +295,18 @@
       if(!city){ citySel.focus(); toast('select your city'); return; }
       if(city==='other' && !otherCityVal){ otherCity.focus(); toast('tell us which city'); return; }
       if(v.replace(/\D/g,'').length<7){ $('#ph').focus(); toast('enter a valid phone number'); return; }
+
+      const btn=$('#submitApp'), orig=btn.textContent;
+      btn.disabled=true; btn.textContent='submitting…';
+      // save the application to the Google Sheet (no-cors so the Apps Script POST goes through)
+      try{
+        const fd=new FormData();
+        fd.append('name',name); fd.append('handle',handle); fd.append('platform',platform);
+        fd.append('city',city==='other'?otherCityVal:city); fd.append('phone',v);
+        await fetch(SHEET_ENDPOINT,{method:'POST',mode:'no-cors',body:fd});
+      }catch(e){}
+      btn.disabled=false; btn.textContent=orig;
+
       // reflect handle on the confirmation pill
       $$('.done-pill').forEach(p=>p.innerHTML=(platform==='tiktok'?TT_SVG(15):IG_SVG(15))+' @'+handle);
       // bay area gets the received screen; everywhere else joins the waitlist
