@@ -1,0 +1,309 @@
+<!-- @dsCard group="Creator Landing" viewport="1280x900" subtitle="creators.snackpass.co/apply — creator application form" name="Creator application" -->
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snackpass — apply for creator access</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  *{box-sizing:border-box;margin:0;}
+  html{scroll-behavior:smooth;overflow-x:clip;}
+  body{font-family:var(--font-text);color:var(--sp-navy);background:var(--sp-white);-webkit-font-smoothing:antialiased;overflow-x:clip;}
+  h1,h2,h3{font-family:var(--font-display);letter-spacing:-0.03em;font-weight:800;text-transform:lowercase;line-height:1.02;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
+  @keyframes popIn{0%{opacity:0;transform:scale(.9) translateY(8px);}100%{opacity:1;transform:scale(1) translateY(0);}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;}}
+
+  /* ---- buttons ---- */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-text);font-weight:600;cursor:pointer;border:none;transition:transform var(--dur-fast) var(--ease-spring),filter var(--dur-base) var(--ease-out),opacity var(--dur-base);}
+  .btn:active{transform:scale(.97);}
+  .btn[disabled]{opacity:.45;pointer-events:none;}
+  .btn-primary{background:var(--gradient-product);color:#fff;box-shadow:var(--shadow-blue-sm);padding:12px 22px;border-radius:var(--radius-pill);font-size:15px;}
+  .btn-primary:hover{filter:brightness(1.04);}
+  .btn-ghost{background:transparent;color:var(--sp-navy);border:1.5px solid var(--sp-line);padding:11px 20px;border-radius:var(--radius-pill);font-size:15px;}
+  .btn-ghost:hover{border-color:var(--sp-blue);color:var(--sp-blue);}
+  .btn-lg{padding:16px 30px;font-size:17px;border-radius:var(--radius-pill);}
+  .btn-block{width:100%;}
+
+  /* ---- nav ---- */
+  nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--sp-line);}
+  .navin{display:flex;align-items:center;gap:28px;height:72px;position:relative;}
+  .navin .logo{height:26px;}
+  .navcta{margin-left:auto;display:flex;gap:10px;align-items:center;}
+  .navcta .help{font-weight:600;font-size:14px;color:var(--sp-slate);display:inline-flex;align-items:center;gap:6px;}
+  .navcta .help:hover{color:var(--sp-blue);}
+
+  /* ---- shell ---- */
+  .shell{position:relative;background:var(--gradient-aurora);min-height:calc(100vh - 72px);overflow-x:clip;}
+  .shell .grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:56px 32px 72px;max-width:1180px;margin:0 auto;}
+
+  /* ---- left brand rail ---- */
+  .rail-brand{position:relative;animation:fadeUp .6s var(--ease-spring) both;}
+  .rail-brand .badge{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--sp-line);border-radius:var(--radius-pill);padding:6px 15px 6px 7px;box-shadow:var(--shadow-xs);font-weight:600;font-size:13.5px;}
+  .rail-brand .badge .n{font-family:var(--font-display);font-weight:800;font-size:13px;color:#fff;background:var(--gradient-product);padding:5px 11px;border-radius:var(--radius-pill);letter-spacing:-0.02em;box-shadow:var(--shadow-blue-sm);}
+  .rail-brand h1{font-size:clamp(32px,4.6vw,50px);margin:22px 0 18px;max-width:520px;}
+  .rail-brand h1 .accent{color:var(--sp-blue);}
+  .rail-brand p.lede{font-size:18px;line-height:1.55;color:var(--sp-slate);max-width:430px;}
+  .perks{margin-top:30px;display:flex;flex-direction:column;gap:14px;}
+  .perk{display:flex;align-items:center;gap:13px;font-size:15.5px;font-weight:500;color:var(--sp-navy);}
+  .perk .pi{width:38px;height:38px;border-radius:11px;background:#fff;border:1px solid var(--sp-line);display:flex;align-items:center;justify-content:center;color:var(--sp-blue);box-shadow:var(--shadow-xs);flex:none;}
+  .avline{margin-top:30px;display:flex;align-items:center;gap:12px;font-size:14px;color:var(--sp-slate);}
+  .avstack{display:flex;}
+  .avstack i{width:34px;height:34px;border-radius:50%;border:2.5px solid #fff;margin-left:-9px;display:block;overflow:hidden;background:var(--sp-mist);box-shadow:var(--shadow-xs);}
+  .avstack i:first-child{margin-left:0;}
+  .avstack i .avvid{width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* ---- card ---- */
+  .card{position:relative;background:#fff;border:1px solid var(--sp-line);border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);padding:34px 34px 30px;max-width:480px;width:100%;justify-self:end;animation:popIn .5s var(--ease-spring) both;}
+  .eyebrow{font-family:var(--font-text);font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--sp-blue);}
+  .card h2{font-size:27px;margin:8px 0 6px;}
+  .card .sub{font-size:15px;color:var(--sp-slate);line-height:1.5;margin-bottom:22px;}
+
+  /* panes */
+  .pane{display:none;animation:fadeUp .4s var(--ease-out) both;}
+  .pane.show{display:block;}
+
+  /* fields */
+  .field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;}
+  .field label{font-weight:600;font-size:13.5px;color:var(--sp-navy);}
+  .field .hint{font-size:12.5px;color:var(--sp-slate);font-weight:400;margin-top:-2px;}
+  .input{font-family:var(--font-text);font-size:16px;padding:14px 15px;border:1.5px solid var(--sp-line);border-radius:var(--radius-md);background:#fff;color:var(--sp-navy);outline:none;width:100%;transition:border-color var(--dur-base),box-shadow var(--dur-base);}
+  .input::placeholder{color:#9aa8b6;}
+  .input:focus{border-color:var(--sp-blue);box-shadow:var(--focus-ring);}
+  .phone-row{display:flex;gap:10px;}
+  .phone-row .cc{width:78px;flex:none;text-align:center;font-weight:600;}
+
+  /* platform segmented control */
+  .seg{display:inline-flex;background:#fff;border:1px solid var(--sp-line);border-radius:var(--radius-pill);padding:3px;gap:2px;width:100%;}
+  .seg button{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:9px 12px;border-radius:var(--radius-pill);font-family:var(--font-text);font-weight:700;font-size:13.5px;color:var(--sp-slate);background:none;border:none;cursor:pointer;transition:all var(--dur-base);}
+  .seg button.on{background:var(--gradient-product);color:#fff;box-shadow:var(--shadow-blue-sm);}
+  .seg button svg{width:15px;height:15px;}
+  .platform{margin-bottom:10px;}
+
+  /* handle input with @ prefix */
+  .handle-input{display:flex;align-items:center;border:1.5px solid var(--sp-line);border-radius:var(--radius-md);background:#fff;transition:border-color var(--dur-base),box-shadow var(--dur-base);}
+  .handle-input:focus-within{border-color:var(--sp-blue);box-shadow:var(--focus-ring);}
+  .handle-input .at{padding:0 2px 0 15px;color:var(--sp-slate);font-size:16px;font-weight:600;}
+  .handle-input input{flex:1;width:100%;border:none;outline:none;background:transparent;padding:14px 15px 14px 4px;font-size:16px;font-family:var(--font-text);color:var(--sp-navy);}
+  .handle-input input::placeholder{color:#9aa8b6;}
+
+  /* location dropdown */
+  .select-wrap{position:relative;}
+  .select{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:42px;}
+  .select.placeholder{color:#9aa8b6;}
+  .select-wrap .chev{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--sp-slate);pointer-events:none;}
+
+  .fineprint{font-size:12.5px;color:var(--sp-slate);line-height:1.5;margin-top:14px;text-align:center;}
+  .fineprint a{color:var(--sp-blue);font-weight:600;}
+
+  /* confirmation */
+  .result{text-align:center;padding-top:6px;}
+  .creator-badge{width:92px;height:92px;margin:0 auto 16px;animation:popIn .5s var(--ease-spring) both;}
+  .creator-badge img{width:100%;height:100%;object-fit:contain;display:block;}
+  .result h2{font-size:30px;margin-bottom:8px;}
+  .result .sub{font-size:15.5px;margin-bottom:0;}
+  .ig-pill{display:inline-flex;align-items:center;gap:8px;background:var(--sp-mist);color:var(--sp-blue);font-weight:700;font-size:14px;padding:8px 15px;border-radius:var(--radius-pill);margin:16px 0 4px;}
+  .soon-seal{width:66px;height:66px;border-radius:50%;background:var(--gradient-product);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;box-shadow:var(--shadow-blue-sm);animation:popIn .5s var(--ease-spring) both;}
+  .followus{margin-top:22px;display:flex;align-items:center;justify-content:center;gap:9px;}
+  .followus .lbl{font-size:13px;font-weight:600;color:var(--sp-slate);}
+  .socials{display:flex;align-items:center;gap:9px;}
+  .socials a{display:inline-flex;align-items:center;justify-content:center;color:var(--sp-slate);transition:color var(--dur-base),transform var(--dur-fast) var(--ease-spring);}
+  .socials a:hover{color:var(--sp-blue);transform:translateY(-1px);}
+  .socials svg{width:17px;height:17px;}
+
+  /* toast */
+  .toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);background:var(--sp-navy);color:#fff;font-weight:600;font-size:14.5px;padding:13px 22px;border-radius:var(--radius-pill);box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:9px;opacity:0;pointer-events:none;transition:opacity var(--dur-base),transform var(--dur-base) var(--ease-spring);z-index:80;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .toast .tc{color:var(--sp-sky);}
+
+  /* responsive */
+  @media (max-width:920px){
+    .shell .grid{grid-template-columns:1fr;gap:34px;padding:40px 24px 56px;}
+    .rail-brand{text-align:center;}
+    .rail-brand h1,.rail-brand p.lede{margin-left:auto;margin-right:auto;}
+    .perks{max-width:330px;margin-left:auto;margin-right:auto;}
+    .avline{justify-content:center;}
+    .card{justify-self:center;}
+  }
+  @media (max-width:520px){
+    .wrap{padding:0 18px;}
+    .card{padding:26px 22px 24px;border-radius:var(--radius-lg);}
+    .rail-brand .perks{display:none;}
+  }
+</style>
+</head>
+<body>
+
+  <nav><div class="wrap navin">
+    <a href="index.html"><img class="logo" src="../../assets/logos/logo-lockup-blue.png" alt="Snackpass"></a>
+  </div></nav>
+
+  <main class="shell"><div class="grid">
+
+    <!-- LEFT: brand rail -->
+    <div class="rail-brand">
+      <span class="badge"><span class="n">20K+</span> creator network</span>
+      <h1>apply to the <span class="accent">creator network</span>.</h1>
+      <p class="lede">join a network of top creators unlocking exclusive brand collaborations.</p>
+      <div class="perks">
+        <div class="perk"><span class="pi"><i data-lucide="utensils" style="width:18px;height:18px;"></i></span> get free meals &amp; paid campaigns</div>
+        <div class="perk"><span class="pi"><i data-lucide="store" style="width:18px;height:18px;"></i></span> collab with local spots near you</div>
+        <div class="perk"><span class="pi"><i data-lucide="zap" style="width:18px;height:18px;"></i></span> no awkward dms — it's all in the app</div>
+      </div>
+      <div class="avline">
+        <span class="avstack">
+          <i><video class="avvid" src="../../assets/media/reel-wowtea.mp4" muted loop playsinline autoplay preload="metadata"></video></i>
+          <i><video class="avvid" src="../../assets/media/reel-katsu.mp4" muted loop playsinline autoplay preload="metadata"></video></i>
+          <i><video class="avvid" src="../../assets/media/reel-mochiholic.mp4" muted loop playsinline autoplay preload="metadata"></video></i>
+          <i><video class="avvid" src="../../assets/media/reel-ricedynasty.mp4" muted loop playsinline autoplay preload="metadata"></video></i>
+        </span>
+        joined by top creators in the US
+      </div>
+    </div>
+
+    <!-- RIGHT: application card -->
+    <div class="card">
+
+      <!-- FORM -->
+      <section class="pane show" data-pane="form">
+        <div>
+          <div class="field">
+            <label for="name">your name</label>
+            <input class="input" id="name" placeholder="first &amp; last name" autocomplete="name">
+          </div>
+
+          <div class="field">
+            <label for="handle">your handle</label>
+            <div class="seg platform" id="platformSeg">
+              <button class="on" data-platform="instagram" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> instagram</button>
+              <button data-platform="tiktok" type="button"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.05-2.82h-3.3v12.43a2.5 2.5 0 1 1-2.5-2.5c.2 0 .4.03.59.08V9.6a5.8 5.8 0 1 0 5.21 5.77V9.01a7.5 7.5 0 0 0 4.45 1.45V7.16a4.28 4.28 0 0 1-3.4-1.34z"/></svg> tiktok</button>
+            </div>
+            <div class="handle-input">
+              <span class="at">@</span>
+              <input id="handle" placeholder="yourhandle" autocapitalize="none" autocomplete="off" spellcheck="false">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="city">where do you create?</label>
+            <div class="select-wrap">
+              <select class="input select placeholder" id="city">
+                <option value="" selected disabled hidden>select your city</option>
+                <option value="bay area">bay area</option>
+                <option value="new york">new york</option>
+                <option value="los angeles">los angeles</option>
+                <option value="miami">miami</option>
+                <option value="seattle">seattle</option>
+                <option value="vegas">vegas</option>
+                <option value="dmv">DMV</option>
+                <option value="atlanta">atlanta</option>
+                <option value="chicago">chicago</option>
+                <option value="houston">houston</option>
+                <option value="dallas">dallas</option>
+                <option value="philly">philly</option>
+                <option value="austin">austin</option>
+                <option value="nashville">nashville</option>
+                <option value="san diego">san diego</option>
+                <option value="other">other</option>
+              </select>
+              <i class="chev" data-lucide="chevron-down"></i>
+            </div>
+            <input class="input" id="otherCity" placeholder="which city?" style="display:none;margin-top:10px;" autocomplete="off" autocapitalize="words">
+          </div>
+
+          <div class="field">
+            <label for="ph">phone number</label>
+            <div class="phone-row">
+              <input class="input cc" value="🇺🇸 +1" readonly>
+              <input class="input" id="ph" type="tel" inputmode="numeric" placeholder="(555) 123-4567" autocomplete="tel">
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-lg btn-block" id="submitApp">submit application</button>
+          <p class="fineprint">by continuing you agree to our <a href="#">terms</a> &amp; <a href="#">privacy policy</a>, and to receive texts from Snackpass.</p>
+          <p class="fineprint" style="margin-top:6px;">prefer to dm? <a href="apply-dm.html">apply on instagram →</a></p>
+        </div>
+      </section>
+
+      <!-- CONFIRMATION — bay area: application received / other cities: waitlist -->
+      <section class="pane" data-pane="done">
+        <div class="result">
+          <div id="doneBay">
+            <div class="creator-badge"><img src="../../assets/badges/snackpass-creator-badge.png" alt="Snackpass creator badge"></div>
+            <h2>application received ✨</h2>
+            <p class="sub">thanks for applying to the snackpass creator network! our team reviews every creator — we'll text you about next steps soon.</p>
+            <span class="ig-pill done-pill">@yourhandle</span>
+          </div>
+          <div id="doneSoon" style="display:none;">
+            <div class="soon-seal"><i data-lucide="message-circle" style="width:32px;height:32px;stroke-width:2.2;"></i></div>
+            <h2>you're on the list ✨</h2>
+            <p class="sub">thanks for applying! our team will be in touch via text soon about creator collabs in <span id="soonCity">your city</span>.</p>
+            <span class="ig-pill done-pill">@yourhandle</span>
+          </div>
+          <div class="followus"><div class="lbl">follow @snackpass</div><div class="socials"><a href="https://instagram.com/snackpass" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@snackpass" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.05-2.82h-3.3v12.43a2.5 2.5 0 1 1-2.5-2.5c.2 0 .4.03.59.08V9.6a5.8 5.8 0 1 0 5.21 5.77V9.01a7.5 7.5 0 0 0 4.45 1.45V7.16a4.28 4.28 0 0 1-3.4-1.34z"/></svg></a></div></div>
+        </div>
+      </section>
+
+    </div>
+  </div></main>
+
+  <div class="toast" id="toast"><i class="tc" data-lucide="check-circle" style="width:18px;height:18px;"></i><span id="toastMsg">saved</span></div>
+
+  <script>
+    if(window.lucide) lucide.createIcons();
+    const $=s=>document.querySelector(s);
+    const $$=s=>[...document.querySelectorAll(s)];
+    let platform='instagram';
+
+    const IG_SVG=s=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>`;
+    const TT_SVG=s=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.05-2.82h-3.3v12.43a2.5 2.5 0 1 1-2.5-2.5c.2 0 .4.03.59.08V9.6a5.8 5.8 0 1 0 5.21 5.77V9.01a7.5 7.5 0 0 0 4.45 1.45V7.16a4.28 4.28 0 0 1-3.4-1.34z"/></svg>`;
+
+    $$('video.avvid').forEach(v=>v.play().catch(()=>{}));
+
+    function toast(msg){const t=$('#toast');$('#toastMsg').textContent=msg;t.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(()=>t.classList.remove('show'),2600);}
+
+    // platform toggle
+    $$('#platformSeg button').forEach(b=>b.addEventListener('click',()=>{
+      $$('#platformSeg button').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on'); platform=b.dataset.platform;
+      $('#handle').focus();
+    }));
+    $('#handle').addEventListener('input',e=>{ e.target.value=e.target.value.replace(/^@+/,''); });
+
+    // location dropdown + "somewhere else" write-in
+    const citySel=$('#city'), otherCity=$('#otherCity');
+    citySel.addEventListener('change',()=>{
+      citySel.classList.toggle('placeholder', !citySel.value);
+      const isOther=citySel.value==='other';
+      otherCity.style.display=isOther?'block':'none';
+      if(isOther) otherCity.focus();
+    });
+
+    // submit form -> city-based confirmation
+    const ACTIVE_CITIES=['bay area']; // bay area -> application received; every other city -> waitlist
+    $('#submitApp').addEventListener('click',()=>{
+      const name=$('#name').value.trim();
+      const handle=$('#handle').value.trim().replace(/^@+/,'');
+      const city=citySel.value;
+      const otherCityVal=otherCity.value.trim();
+      const v=$('#ph').value.trim();
+      if(!name){ $('#name').focus(); toast('enter your name'); return; }
+      if(!handle){ $('#handle').focus(); toast('enter your handle'); return; }
+      if(!city){ citySel.focus(); toast('select your city'); return; }
+      if(city==='other' && !otherCityVal){ otherCity.focus(); toast('tell us which city'); return; }
+      if(v.replace(/\D/g,'').length<7){ $('#ph').focus(); toast('enter a valid phone number'); return; }
+      // reflect handle on the confirmation pill
+      $$('.done-pill').forEach(p=>p.innerHTML=(platform==='tiktok'?TT_SVG(15):IG_SVG(15))+' @'+handle);
+      // bay area gets the received screen; everywhere else joins the waitlist
+      const active=ACTIVE_CITIES.includes(city);
+      $('#doneBay').style.display=active?'block':'none';
+      $('#doneSoon').style.display=active?'none':'block';
+      if(!active) $('#soonCity').textContent=(city==='other'?otherCityVal:city);
+      $$('.pane').forEach(p=>p.classList.toggle('show', p.dataset.pane==='done'));
+      $('.card').scrollIntoView({behavior:'smooth',block:'nearest'});
+      if(window.lucide) lucide.createIcons();
+    });
+  </script>
+</body></html>
