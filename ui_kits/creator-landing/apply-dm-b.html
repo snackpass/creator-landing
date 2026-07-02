@@ -258,27 +258,8 @@
             <input class="input" id="otherCity" placeholder="which city?" style="display:none;margin-top:10px;" autocomplete="off" autocapitalize="words">
           </div>
 
-          <div class="field">
-            <label for="ph">phone number</label>
-            <div class="phone-row">
-              <input class="input cc" value="🇺🇸 +1" readonly>
-              <input class="input" id="ph" type="tel" inputmode="numeric" placeholder="(555) 123-4567" autocomplete="tel">
-            </div>
-          </div>
-
-          <button class="btn btn-primary btn-lg btn-block" id="sendCode">text me a code</button>
-          <p class="fineprint">by continuing you agree to our <a href="#">terms</a> &amp; <a href="#">privacy policy</a>, and to receive texts from Snackpass.</p>
-        </div>
-
-        <div id="codeGroup" style="display:none;">
-          <div class="field">
-            <label>enter the 6-digit code</label>
-            <div class="otp" id="otp">
-              <input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric">
-            </div>
-          </div>
-          <button class="btn btn-primary btn-lg btn-block" id="verifyCode">verify &amp; continue</button>
-          <p class="resend">didn't get it? <a href="#" id="resend">resend code</a> · <a href="#" id="editPhone">change number</a></p>
+          <button class="btn btn-primary btn-lg btn-block" id="submitApply">submit application</button>
+          <p class="fineprint">by continuing you agree to our <a href="#">terms</a> &amp; <a href="#">privacy policy</a>.</p>
         </div>
       </section>
 
@@ -344,40 +325,38 @@
       if(isOther) otherCity.focus();
     });
 
-    // submit form -> code
-    $('#sendCode').addEventListener('click',()=>{
+    // submit -> save to Google Sheet, then show the city-based confirmation
+    const SHEET_ENDPOINT = 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL'; // <-- your Sheet web-app URL
+    const ACTIVE_CITIES = ['bay area']; // bay area -> download app; every other city -> team will be in touch
+    $('#submitApply').addEventListener('click', async ()=>{
       const name=$('#name').value.trim();
       const handle=$('#handle').value.trim().replace(/^@+/,'');
-      const city=citySel.value;
+      const raw=citySel.value;
       const otherCityVal=otherCity.value.trim();
-      const v=$('#ph').value.trim();
       if(!name){ $('#name').focus(); toast('enter your name'); return; }
       if(!handle){ $('#handle').focus(); toast('enter your handle'); return; }
-      if(!city){ citySel.focus(); toast('select your city'); return; }
-      if(city==='other' && !otherCityVal){ otherCity.focus(); toast('tell us your city'); return; }
-      if(v.replace(/\D/g,'').length<7){ $('#ph').focus(); toast('enter a valid phone number'); return; }
-      $('#phoneGroup').style.display='none';
-      $('#codeGroup').style.display='block';
-      toast('code sent — use any 6 digits');
-      $('#otp input')[0].focus();
-    });
-    $('#editPhone')?.addEventListener('click',e=>{e.preventDefault();$('#codeGroup').style.display='none';$('#phoneGroup').style.display='block';});
-    $('#resend')?.addEventListener('click',e=>{e.preventDefault();toast('new code sent');});
+      if(!raw){ citySel.focus(); toast('select your city'); return; }
+      if(raw==='other' && !otherCityVal){ otherCity.focus(); toast('tell us your city'); return; }
 
-    const otp=$$('#otp input');
-    otp.forEach((inp,i)=>{
-      inp.addEventListener('input',()=>{ if(inp.value && i<otp.length-1) otp[i+1].focus(); });
-      inp.addEventListener('keydown',e=>{ if(e.key==='Backspace' && !inp.value && i>0) otp[i-1].focus(); });
-    });
-    // bay area -> download-the-app screen; every other city (incl. "other") -> team-will-be-in-touch
-    const ACTIVE_CITIES = ['bay area'];
-    $('#verifyCode').addEventListener('click',()=>{
-      const raw = citySel.value;
-      const displayCity = raw==='other' ? (otherCity.value.trim() || 'your city') : raw;
+      const city = raw==='other' ? otherCityVal : raw;
+      const btn=$('#submitApply'), orig=btn.textContent;
+      btn.disabled=true; btn.textContent='submitting…';
+
+      // save the application to the Google Sheet (no-cors so the Apps Script POST goes through)
+      try{
+        if(SHEET_ENDPOINT.indexOf('http')===0){
+          const fd=new FormData();
+          fd.append('name',name); fd.append('handle',handle); fd.append('platform',platform); fd.append('city',city);
+          await fetch(SHEET_ENDPOINT,{method:'POST',mode:'no-cors',body:fd});
+        }
+      }catch(e){}
+
+      // show the right confirmation
       const active = ACTIVE_CITIES.includes(raw);
       document.getElementById('finishActive').style.display = active ? 'block' : 'none';
       document.getElementById('finishSoon').style.display = active ? 'none' : 'block';
-      if(!active) document.getElementById('soonCity').textContent = displayCity;
+      if(!active) document.getElementById('soonCity').textContent = city;
+      btn.disabled=false; btn.textContent=orig;
       goStep(2);
     });
   </script>
