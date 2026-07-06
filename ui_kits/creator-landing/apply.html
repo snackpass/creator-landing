@@ -282,7 +282,7 @@
     });
 
     // submit form -> save to Google Sheet, then show the city-based confirmation
-    const SHEET_ENDPOINT='https://script.google.com/macros/s/AKfycbzFBberIwTKR2mT_UZjSxuK_xQhAoYCe8lfwH8ytPPg7Z1dTm3m_eJUQd5XAxrtQNkE/exec'; // same Google Sheet web-app as apply-dm-b
+    const SHEET_ENDPOINT='https://script.google.com/macros/s/AKfycbzqpYSpfubUWqXOplzmcjKyO5-f1AHLYeMWTjnvQWULR41lx2E-VOu11XCghWFsYL66/exec'; // same Google Sheet web-app as apply-dm-b
     const ACTIVE_CITIES=['bay area']; // bay area -> application received; every other city -> waitlist
     $('#submitApp').addEventListener('click',async ()=>{
       const name=$('#name').value.trim();
@@ -300,7 +300,7 @@
       btn.disabled=true; btn.textContent='submitting…';
       // save the application to the Google Sheet (no-cors so the Apps Script POST goes through)
       try{
-        const fd=new FormData();
+        const fd=new URLSearchParams(); // urlencoded — Apps Script mangles the last field of multipart FormData
         fd.append('name',name); fd.append('handle',handle); fd.append('platform',platform);
         fd.append('city',city==='other'?otherCityVal:city); fd.append('phone',v);
         await fetch(SHEET_ENDPOINT,{method:'POST',mode:'no-cors',body:fd});
