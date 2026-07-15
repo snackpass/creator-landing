@@ -2,6 +2,22 @@
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Snackpass — apply for creator access</title>
+<script>
+// Capture utm_* + external referrer on landing so they survive to submit (stored
+// per-session; merged so the first touch isn't overwritten by later navigation).
+(function(){try{
+  var q=new URLSearchParams(location.search),u={},keep=false;
+  ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(k){
+    var v=q.get(k); if(v){u[k]=v.slice(0,200); keep=true;}
+  });
+  var r=document.referrer;
+  if(r && r.indexOf(location.host)===-1){u.referrer=r.slice(0,300); keep=true;}
+  if(keep){
+    var prev={}; try{prev=JSON.parse(sessionStorage.getItem('sp_utm')||'{}');}catch(_){}
+    sessionStorage.setItem('sp_utm',JSON.stringify(Object.assign(prev,u)));
+  }
+}catch(e){}})();
+</script>
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
   /* self-contained brand tokens + fonts (no external dependencies, renders anywhere) */
@@ -322,7 +338,7 @@
     });
 
     // submit -> save to Google Sheet, then show the city-based confirmation
-    const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzqpYSpfubUWqXOplzmcjKyO5-f1AHLYeMWTjnvQWULR41lx2E-VOu11XCghWFsYL66/exec'; // Google Sheet web-app
+    const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwtGDlH-5ZSZF51o9_GRVTom4-jtos1EgmGJ9D7H3SuzRjNasvOyXt1Z1MyZLmo19lj/exec'; // Google Sheet web-app
     const ACTIVE_CITIES = ['bay area']; // bay area -> application received; every other city -> team will be in touch
     $('#submitApply').addEventListener('click', async ()=>{
       const name=$('#name').value.trim();
@@ -345,6 +361,9 @@
         if(SHEET_ENDPOINT.indexOf('http')===0){
           const fd=new URLSearchParams(); // urlencoded — Apps Script mangles the last field of multipart FormData
           fd.append('name',name); fd.append('handle',handle); fd.append('platform',platform); fd.append('city',city); fd.append('phone',phone);
+          try{ const u=JSON.parse(sessionStorage.getItem('sp_utm')||'{}');
+            ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','referrer'].forEach(k=>fd.append(k,u[k]||''));
+          }catch(_){ }
           await fetch(SHEET_ENDPOINT,{method:'POST',mode:'no-cors',body:fd});
         }
       }catch(e){}
