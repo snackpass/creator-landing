@@ -120,6 +120,10 @@
   .seg button.on{background:var(--gradient-product);color:#fff;box-shadow:var(--shadow-blue-sm);}
   .seg button svg{width:15px;height:15px;}
   .platform{margin-bottom:10px;}
+  .handle-input .plat-ic{display:flex;align-items:center;padding-left:14px;color:var(--sp-slate);}
+  .handle-input .plat-ic svg{width:16px;height:16px;display:block;}
+  .handle-input .plat-ic + .at{padding-left:8px;}
+  .handle-hint{font-size:12.5px;color:var(--sp-slate);}
 
   .handle-input{display:flex;align-items:center;border:1.5px solid var(--sp-line);border-radius:var(--radius-md);background:#fff;transition:border-color var(--dur-base),box-shadow var(--dur-base);}
   .handle-input:focus-within{border-color:var(--sp-blue);box-shadow:var(--focus-ring);}
@@ -228,15 +232,18 @@
           </div>
 
           <div class="field">
-            <label for="handle">your handle</label>
-            <div class="seg platform" id="platformSeg">
-              <button class="on" data-platform="instagram" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> instagram</button>
-              <button data-platform="tiktok" type="button"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.05-2.82h-3.3v12.43a2.5 2.5 0 1 1-2.5-2.5c.2 0 .4.03.59.08V9.6a5.8 5.8 0 1 0 5.21 5.77V9.01a7.5 7.5 0 0 0 4.45 1.45V7.16a4.28 4.28 0 0 1-3.4-1.34z"/></svg> tiktok</button>
+            <label for="igHandle">your handles</label>
+            <div class="handle-input">
+              <span class="plat-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span>
+              <span class="at">@</span>
+              <input id="igHandle" placeholder="instagram handle" autocapitalize="none" autocomplete="off" spellcheck="false">
             </div>
             <div class="handle-input">
+              <span class="plat-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.05-2.82h-3.3v12.43a2.5 2.5 0 1 1-2.5-2.5c.2 0 .4.03.59.08V9.6a5.8 5.8 0 1 0 5.21 5.77V9.01a7.5 7.5 0 0 0 4.45 1.45V7.16a4.28 4.28 0 0 1-3.4-1.34z"/></svg></span>
               <span class="at">@</span>
-              <input id="handle" placeholder="yourhandle" autocapitalize="none" autocomplete="off" spellcheck="false">
+              <input id="ttHandle" placeholder="tiktok handle" autocapitalize="none" autocomplete="off" spellcheck="false">
             </div>
+            <span class="handle-hint">add one or both</span>
           </div>
 
           <div class="field">
@@ -307,7 +314,6 @@
     if(window.lucide) lucide.createIcons();
     const $=s=>document.querySelector(s);
     const $$=s=>[...document.querySelectorAll(s)];
-    let platform='instagram';
     $$('video.avvid').forEach(v=>v.play().catch(()=>{}));
 
     function toast(msg){const t=$('#toast');$('#toastMsg').textContent=msg;t.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(()=>t.classList.remove('show'),2600);}
@@ -320,13 +326,10 @@
       if(window.lucide) lucide.createIcons();
     }
 
-    // platform toggle
-    $$('#platformSeg button').forEach(b=>b.addEventListener('click',()=>{
-      $$('#platformSeg button').forEach(x=>x.classList.remove('on'));
-      b.classList.add('on'); platform=b.dataset.platform;
-      $('#handle').focus();
-    }));
-    $('#handle').addEventListener('input',e=>{ e.target.value=e.target.value.replace(/^@+/,''); });
+    // strip a leading @ as they type in either handle field
+    ['#igHandle','#ttHandle'].forEach(sel=>{
+      $(sel).addEventListener('input',e=>{ e.target.value=e.target.value.replace(/^@+/,''); });
+    });
 
     // city dropdown + "other" write-in
     const citySel=$('#city'), otherCity=$('#otherCity');
@@ -342,12 +345,13 @@
     const ACTIVE_CITIES = ['bay area']; // bay area -> application received; every other city -> team will be in touch
     $('#submitApply').addEventListener('click', async ()=>{
       const name=$('#name').value.trim();
-      const handle=$('#handle').value.trim().replace(/^@+/,'');
+      const igHandle=$('#igHandle').value.trim().replace(/^@+/,'');
+      const ttHandle=$('#ttHandle').value.trim().replace(/^@+/,'');
       const raw=citySel.value;
       const otherCityVal=otherCity.value.trim();
       const phone=$('#ph').value.trim();
       if(!name){ $('#name').focus(); toast('enter your name'); return; }
-      if(!handle){ $('#handle').focus(); toast('enter your handle'); return; }
+      if(!igHandle && !ttHandle){ $('#igHandle').focus(); toast('add your instagram or tiktok handle'); return; }
       if(!raw){ citySel.focus(); toast('select your city'); return; }
       if(raw==='other' && !otherCityVal){ otherCity.focus(); toast('tell us your city'); return; }
       if(phone.replace(/\D/g,'').length<7){ $('#ph').focus(); toast('enter a valid phone number'); return; }
@@ -360,7 +364,10 @@
       try{
         if(SHEET_ENDPOINT.indexOf('http')===0){
           const fd=new URLSearchParams(); // urlencoded — Apps Script mangles the last field of multipart FormData
-          fd.append('name',name); fd.append('handle',handle); fd.append('platform',platform); fd.append('city',city); fd.append('phone',phone);
+          const platform=[igHandle&&'instagram', ttHandle&&'tiktok'].filter(Boolean).join(', ');
+          fd.append('name',name); fd.append('instagram',igHandle); fd.append('tiktok',ttHandle);
+          fd.append('handle',igHandle||ttHandle); fd.append('platform',platform);
+          fd.append('city',city); fd.append('phone',phone);
           try{ const u=JSON.parse(sessionStorage.getItem('sp_utm')||'{}');
             ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','referrer'].forEach(k=>fd.append(k,u[k]||''));
           }catch(_){ }
