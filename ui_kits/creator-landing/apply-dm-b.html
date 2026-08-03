@@ -281,6 +281,24 @@
             </div>
           </div>
 
+          <div class="field">
+            <label for="heard">how did you hear about us?</label>
+            <div class="select-wrap">
+              <select class="input select placeholder" id="heard">
+                <option value="" selected disabled hidden>select an option</option>
+                <option value="instagram">Instagram</option>
+                <option value="tiktok">TikTok</option>
+                <option value="google search">Google search</option>
+                <option value="referred by a friend">Referred by a friend</option>
+                <option value="referred by another creator">Referred by another creator</option>
+                <option value="a restaurant told me about it">A restaurant told me about it</option>
+                <option value="snackpass reached out to me">Snackpass reached out to me</option>
+                <option value="other">Other</option>
+              </select>
+              <i class="chev" data-lucide="chevron-down"></i>
+            </div>
+          </div>
+
           <button class="btn btn-primary btn-lg btn-block" id="submitApply">submit application</button>
           <p class="fineprint">by continuing you agree to our <a href="#">terms</a> &amp; <a href="#">privacy policy</a>, and to receive texts from Snackpass.</p>
         </div>
@@ -340,6 +358,10 @@
       if(isOther) otherCity.focus();
     });
 
+    // "how did you hear about us" dropdown — grey placeholder until chosen
+    const heardSel=$('#heard');
+    heardSel.addEventListener('change',()=>{ heardSel.classList.toggle('placeholder', !heardSel.value); });
+
     // submit -> save to Google Sheet, then show the city-based confirmation
     const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxtOsipqBZcKIPtW0z_tpWViX_1-qeiEm7yTauob4Upelah1OExv5dWSUqAe4CNSMkc/exec'; // Google Sheet web-app
     const ACTIVE_CITIES = ['bay area']; // bay area -> application received; every other city -> team will be in touch
@@ -355,6 +377,7 @@
       if(!raw){ citySel.focus(); toast('select your city'); return; }
       if(raw==='other' && !otherCityVal){ otherCity.focus(); toast('tell us your city'); return; }
       if(phone.replace(/\D/g,'').length<7){ $('#ph').focus(); toast('enter a valid phone number'); return; }
+      if(!heardSel.value){ heardSel.focus(); toast('let us know how you heard about us'); return; }
 
       const city = raw==='other' ? otherCityVal : raw;
       const btn=$('#submitApply'), orig=btn.textContent;
@@ -367,7 +390,7 @@
           const platform=[igHandle&&'instagram', ttHandle&&'tiktok'].filter(Boolean).join(', ');
           fd.append('name',name); fd.append('instagram',igHandle); fd.append('tiktok',ttHandle);
           fd.append('handle',igHandle||ttHandle); fd.append('platform',platform);
-          fd.append('city',city); fd.append('phone',phone);
+          fd.append('city',city); fd.append('phone',phone); fd.append('referral',heardSel.value);
           try{ const u=JSON.parse(sessionStorage.getItem('sp_utm')||'{}');
             ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','referrer'].forEach(k=>fd.append(k,u[k]||''));
           }catch(_){ }
